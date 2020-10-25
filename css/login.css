@@ -1,0 +1,44 @@
+small {
+    color: red;
+    visibility: hidden;
+}
+.cap-text {
+    display:none;
+    color:red
+}
+.fa-check-circle-o {
+    color: green;
+    padding: 10px; 
+    min-width: 40px; 
+    right: 0;
+    top: 0;
+    visibility: hidden;
+}
+/* h4 {
+    display: none;
+} */
+.icon-eye {
+    /* color: green; */
+    padding: 10px; 
+    min-width: 40px; 
+    right: 0;
+    top: 0;
+    /* visibility: hidden; */
+}
+
+.form-control.error {
+    border-color: red;
+}
+
+.form-control.success {
+    border-color: green;
+}
+.error + small {
+    visibility: visible;
+}
+.success ~ .fa-check-circle-o {
+    visibility: visible;
+}
+.success ~ .icon-eye {
+    visibility: hidden;
+}

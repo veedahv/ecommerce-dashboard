@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/login.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <main>
+        <section>
+            <div class="container">
+                <h3 class="text-center">Register with us</h3>
+                <form id="form" class="mt-5">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <div class="input-div position-relative">
+                            <input type="text" class="form-control position-relative" id="name">
+                            <small></small>
+                            <i class="fa fa-check-circle-o position-absolute" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <div class="input-div position-relative">
+                            <input type="text" class="form-control position-relative" id="email">
+                            <small></small>
+                            <i class="fa fa-check-circle-o position-absolute" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password1">Password</label>
+                        <div class="input-div position-relative">
+                            <input type="password" class="form-control position-relative" id="password1">
+                            <small></small>
+                            <i class="fa fa-check-circle-o position-absolute" aria-hidden="true"></i>
+                            <i class="fa fa-eye icon-eye position-absolute" aria-hidden="true"></i>
+                        </div>
+                        <p id="cap-text1" class="cap-text">Caps lock is ON.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="password2">Confirm Password</label>
+                        <div class="input-div position-relative">
+                            <input type="password" class="form-control position-relative" id="password2">
+                            <small></small>
+                            <i class="fa fa-check-circle-o position-absolute" aria-hidden="true"></i>
+                            <i class="fa fa-eye icon-eye position-absolute" aria-hidden="true"></i>
+                        </div>
+                        <p id="cap-text2" class="cap-text">Caps lock is ON.</p>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Register</button>
+                </form>
+                <h4></h4>
+            </div>
+            <div class="container">
+                <form id="form-password" class="mt-5">
+                    <div class="form-password-div">
+                        <label for="password">Check Caps lock </label>
+                        <div class="input-div position-relative">
+                            <input type="password" class="form-control position-relative" id="password">
+                            <p id="cap-text" class="cap-text">Caps lock is ON</p>
+                        </div>
+                    </div>
+            </div>
+        </section>
+    </main>
+    <script src="./js/app.js"></script>
+</body>
+
+</html>
