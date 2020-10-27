@@ -3,16 +3,18 @@ const sideNavItems = document.querySelectorAll('.side-nav-list-item'),
     home = document.querySelector('#home'),
     about = document.querySelector('#about'),
     categories = document.querySelector('#categories'),
+    categoryCardDiv = document.querySelector('.category-card-div'),
     categoryBtns = document.querySelectorAll('.category-btn'),
     notificationLi = document.querySelector('.notification-li'),
     notificationContain = document.querySelector('.notification-contain'),
-    shirts = document.querySelector('#shirts'),
-    bottoms = document.querySelector('.bottoms'),
-    dresses = document.querySelector('.dresses'),
-    twoPiece = document.querySelector('.two-piece'),
-    accessories = document.querySelector('.accessories'),
-    shoes = document.querySelector('.shoes'),
+    shirts = document.querySelectorAll('.shirts'),
+    bottoms = document.querySelectorAll('.bottoms'),
+    dresses = document.querySelectorAll('.dresses'),
+    twoPiece = document.querySelectorAll('.two-piece'),
+    accessories = document.querySelectorAll('.accessories'),
+    shoes = document.querySelectorAll('.shoes'),
     cartRowDiv = document.querySelector('.cart-row-div'),
+    cartRowContain = document.querySelector('.cart-row-contain'),
     favCardDiv = document.querySelector('.fav-card-div'),
     emptyCart = document.querySelector('.empty-cart'),
     favHearts = document.querySelectorAll('.add-to-fav'),
@@ -24,102 +26,165 @@ const sideNavItems = document.querySelectorAll('.side-nav-list-item'),
     clearFav = document.querySelector('.clear-fav'),
     favorites = document.querySelector('#favorites'),
     cart = document.querySelector('#cart'),
-    settings = document.querySelector('#settings');
-let itemPrice;
-let itemPriceCurrency;
-let itemImg;
+    settings = document.querySelector('#settings'),
+    naira = '&#8358;';
 let itemFavCardItem;
 
 function itemCount() {
     noItems.forEach(function (noItem) {
         noItem.innerText = cartRowDiv.childElementCount;
-
     })
 }
-function removeCart() {
+
+
+// // 1
+// function sub(a, b) {
+//     return a + b;
+// }
+
+// const sub = (a, b) => {
+//     return a + b;
+// }
+
+// // 2
+// function sub2(a, b) {
+//     return a + b;
+// }
+
+// const sub2 = (a, b) =>  a + b;
+
+// // 2 + 1
+// function sub2Plus1(a) {
+//     return a;
+// }
+
+// const sub2Plus1 = a =>  a + b;
+
+
+
+const removeCart = () => {
     if (cartRowDiv.childElementCount === 0) {
         console.log('== 0');
+        cartRowContain.style.display = 'none'
+        emptyCart.style.display = 'flex'
     } else {
         console.log('!= 0');
+        cartRowContain.style.display = 'block'
+        emptyCart.style.display = 'none'
+        console.log(emptyCart.className);
+
     }
 }
-function newCartItem() {
-    const cartRow = document.createElement('div'),
-        cartCol8 = document.createElement('div'),
-        cartCol4 = document.createElement('div'),
-        cartCard = document.createElement('div'),
-        cardRow = document.createElement('div'),
-        cardCol8 = document.createElement('div'),
-        cardCol4 = document.createElement('div'),
-        cardBody = document.createElement('div'),
-        cartItemFlex = document.createElement('div'),
-        cardItemCount = document.createElement('div'),
-        cardItemPrice = document.createElement('div'),
-        cardImg = document.createElement('img'),
-        itemName = document.createElement('p'),
-        initialPrice = document.createElement('p'),
-        totalPrice = document.createElement('p'),
-        itemSpan = document.createElement('span'),
-        plusBtn = document.createElement('button'),
-        plusBtnIcon = document.createElement('i'),
-        subtractBtn = document.createElement('button'),
-        subtractBtnIcon = document.createElement('i');
-    cartRow.className = 'row cart-row';
-    cartCol8.className = 'col-md-8';
-    cartCol4.className = 'col-md-4';
-    cartItemFlex.className = 'd-flex';
-    cartCard.className = 'card mb-3';
-    cardRow.className = 'row no-gutters';
-    cardCol8.className = 'col-md-7';
-    cardCol4.className = 'col-md-5';
-    cardBody.className = 'card-body';
-    cardImg.className = 'card-img';
-    subtractBtnIcon.className = 'fa fa-minus';
-    plusBtnIcon.className = 'fa fa-plus';
-    initialPrice.innerText = 'ixox'
-    plusBtn.appendChild(plusBtnIcon);
-    subtractBtn.appendChild(subtractBtnIcon);
-    cardItemCount.appendChild(plusBtn);
-    cardItemCount.appendChild(itemSpan);
-    cardItemCount.appendChild(subtractBtn);
-    cardItemPrice.appendChild(initialPrice);
-    cardItemPrice.appendChild(totalPrice);
-    cartItemFlex.appendChild(cardItemCount);
-    cartItemFlex.appendChild(cardItemPrice);
-    cardCol4.appendChild(cardImg);
-    cardCol8.appendChild(cardBody);
-    cardBody.appendChild(itemName);
-    cardRow.appendChild(cardCol4);
-    cardRow.appendChild(cardCol8);
-    cartCard.appendChild(cardRow);
-    cartCol8.appendChild(cartCard);
-    cartCol4.appendChild(cartItemFlex);
-    cartRow.appendChild(cartCol8);
-    cartRow.appendChild(cartCol4);
-    cartRowDiv.appendChild(cartRow);
-    initialPrice.innerHTML = itemPriceCurrency.innerHTML + itemPrice.innerText;
-    itemName.innerText = itemPrice.innerHTML;
-    cardImg.src = itemImg.src;
-    let x = 1;
-    itemSpan.innerText = x;
-    totalPrice.innerText = itemPrice.innerText * x;
-    plusBtn.addEventListener('click', function (event) {
-        localStorage.getItem('cartRowDivItems');
-        console.log('pls work na');
-        x = x + 1;
-        itemSpan.innerText = x;
-        totalPrice.innerText = parseInt(itemPrice.innerText) * x;
-        localStorage.setItem('favCardDivItems', favCardDiv.innerHTML);
+
+const newCartItem = (itemPrice, itemImg, itemName) => {
+let itemSpan = 1,
+totalPrice = parseInt(itemPrice) * itemSpan;
+    const newItem = `
+    <div class="row">
+                        <div class="col-md-8">
+                            <div class="card mb-3">
+                                <div class="row no-gutters">
+                                    <div class="col-md-4">
+                                        <img src="${itemImg}" class="card-img" alt="...">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h5 class="card-title">${itemName}</h5>
+                                            <p class="card-text">This is a wider card with supporting text below
+                                                as a natural lead-in to additional content. This content is a
+                                                little bit longer.</p>
+                                            <p class="card-text"><small class="text-muted">Last updated 3 mins
+                                                    ago</small></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex">
+                                <div class="">
+                                    <button class="plus-btn">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                    <span>${itemSpan}</span>
+                                    <button class="subtract-btn">
+                                        <i class="fa fa-minus" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <div class="">
+                                    <span class="">&#8358;</span>
+                                    <span class="">${itemPrice}</span>
+                                </div>
+                                <div class="">
+                                    <span class="">&#8358;</span>
+                                    <span class="">${totalPrice}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+
+
+                    cartRowDiv.innerHTML += newItem;
+    // initialPrice.innerHTML = naira + itemPrice.innerText;
+    // itemName.innerText = itemPrice.innerHTML;
+    // cardImg.src = itemImg.src;
+    // itemSpan.innerText = x;
+    // totalPrice.innerText = itemPrice.innerText * x;
+    const plusBtns = cartRowDiv.querySelectorAll('.plus-btn');
+    // const cardImg = cartRowDiv.querySelector('.card-img');
+    // cardImg.src = itemImg;
+    plusBtns.forEach(function addQty(plusBtn) {
+      plusBtn.addEventListener('click', function (event) {
+        console.log('yo')
+        // x = x + 1;
+        itemSpan = itemSpan + 1;
+        console.log(itemSpan);
+        console.log(totalPrice);
+        
+        totalPrice = parseInt(itemPrice) * itemSpan;
+    })  
     })
-    subtractBtn.addEventListener('click', function (event) {
-        console.log('pls work');
-        x = x - 1;
-        itemSpan.innerText = x;
-        totalPrice.innerText = parseInt(itemPrice.innerText) * x;
-    })
+    
+    // subtractBtn.addEventListener('click', function (event) {
+    //     console.log('pls work');
+    //     x = x - 1;
+    //     itemSpan.innerText = x;
+    //     totalPrice.innerText = parseInt(itemPrice.innerText) * x;
+    // })
+    // let cartObject = {
+    //     productImg: cardImg.src,
+    //     productName: itemName.innerText,
+    //     productPrice: initialPrice.innerHTML,
+    //     productQuantity: itemSpan.innerText,
+    // }
+    // localStorage.setItem('cartRowDivItems', JSON.stringify(cartObject));
+
     itemCount();
+    console.log('ooooo');
+
 }
-function newFavItem(checkFav, favHeart, itemFavCard) {
+
+const savedProduct = localStorage.getItem('cartRowDivItems');
+
+// if (savedProduct) {
+//     console.log(JSON.parse(savedProduct));
+// }
+
+    const checkImg = (itemImg) => {
+        for (let i = 0; i < cartRowDiv.childElementCount; i++) {
+            console.log(cartRowDiv.childElementCount);
+            console.log(cartRowDiv.querySelector('.card-img').src);
+            console.log(itemImg);
+            if (cartRowDiv.children[i].querySelector('.card-img').src === itemImg) {
+                console.log('sometjing');
+                cartRowDiv.children[i].remove();
+            } else {
+                console.log('not sometjing');
+            }
+        }
+    }
+
+const newFavItem = (checkFav, favHeart, itemFavCard) => {
     const FavItem = document.createElement('div');
     FavItem.className = 'card item-card-box mb-3';
     function checkClass() {
@@ -167,17 +232,26 @@ favHearts.forEach(function (favHeart) {
     })
 })
 btnCarts.forEach(function (btnCart) {
-    btnCart.addEventListener('click', function (event) {
+    btnCart.addEventListener('click', (event) => {
         let itemPriceCard = btnCart.closest('.item-card-box');
-        itemPriceCurrency = itemPriceCard.children[1].children[1].children[0];
-        itemPrice = itemPriceCard.children[1].children[1].children[1];
-        itemImg = itemPriceCard.children[0];
-        console.log(itemImg.src);
+        let itemPrice = itemPriceCard.querySelector('.item-price').children[1].innerText;
+        let itemName = itemPriceCard.querySelector('.item-name').innerText;
+        let itemImg = itemPriceCard.querySelector('.card-img-top').src;
+        if (btnCart.children[0].innerText === 'Add to cart') {
+            console.log('lah');
+            btnCart.children[0].innerText = 'Remove from cart'
+            newCartItem(itemPrice, itemImg);
+        } else {
+            console.log('lahlah');
+            checkImg(itemImg)
+            btnCart.children[0].innerText = 'Add to cart'
+        }
+        console.log(itemImg);
+        console.log(itemPrice);
+        console.log(itemName);
         console.log('its working');
-        newCartItem();
-        localStorage.setItem('cartRowDivItems', cartRowDiv.innerHTML);
         console.log(cartRowDiv.hasChildNodes());
-
+        removeCart()
     })
 })
 notificationLi.addEventListener('click', function (event) {
@@ -204,6 +278,7 @@ subBtnn.addEventListener('click', function (event) {
     while (cartRowDiv.firstChild) {
         cartRowDiv.removeChild(cartRowDiv.firstChild)
     }
+    removeCart()
 })
 clearFav.addEventListener('click', function (event) {
     console.log('its working too');
@@ -213,73 +288,51 @@ clearFav.addEventListener('click', function (event) {
         favCardDiv.removeChild(favCardDiv.firstChild)
     }
 })
-const saved = localStorage.getItem('cartRowDivItems');
 const savedFav = localStorage.getItem('favCardDivItems');
 
 // If there are any saved items, update our list
 if (savedFav) {
     favCardDiv.innerHTML = savedFav;
 }
-if (saved) {
-    cartRowDiv.innerHTML = saved;
-}
 itemCount();
 removeCart();
+function checkClassCategory(x) {
+    console.log(categoryCardDiv.childElementCount);
+    for (let i = 0; i < categoryCardDiv.childElementCount; i++) {
+        let categoryChildName = categoryCardDiv.children[i].classList.contains(x);
+        console.log(categoryChildName);
+        if (categoryChildName) {
+            categoryCardDiv.children[i].style.display = 'block';
+        } else {
+            categoryCardDiv.children[i].style.display = 'none';
+        }
+    }
+}
 categoryBtns.forEach(
     function (categoryBtn) {
         categoryBtn.addEventListener('click', function (event) {
             switch (event.target.id) {
                 case 'shirts':
-                    console.log('hmmm')
-                    shirts.style.display = 'block'
-                    bottoms.style.display = 'none'
-                    dresses.style.display = 'none'
-                    twoPiece.style.display = 'none'
-                    accessories.style.display = 'none'
-                    shoes.style.display = 'none'
+                    checkClassCategory('shirts')
                     break;
                 case 'bottoms':
-                    shirts.style.display = 'none'
-                    bottoms.style.display = 'block'
-                    dresses.style.display = 'none'
-                    twoPiece.style.display = 'none'
-                    accessories.style.display = 'none'
-                    shoes.style.display = 'none'
+                    checkClassCategory('bottoms')
                     break;
                 case 'dresses':
-                    shirts.style.display = 'none'
-                    bottoms.style.display = 'none'
-                    dresses.style.display = 'block'
-                    twoPiece.style.display = 'none'
-                    accessories.style.display = 'none'
-                    shoes.style.display = 'none'
+                    checkClassCategory('dresses')
                     break;
                 case 'two-piece':
-                    shirts.style.display = 'none'
-                    bottoms.style.display = 'none'
-                    dresses.style.display = 'none'
-                    twoPiece.style.display = 'block'
-                    accessories.style.display = 'none'
-                    shoes.style.display = 'none'
+                    checkClassCategory('two-piece')
                     break;
                 case 'accessories':
-                    shirts.style.display = 'none'
-                    bottoms.style.display = 'none'
-                    dresses.style.display = 'none'
-                    twoPiece.style.display = 'none'
-                    accessories.style.display = 'block'
-                    shoes.style.display = 'none'
+                    checkClassCategory('accessories')
                     break;
                 case 'shoes':
-                    shirts.style.display = 'none'
-                    bottoms.style.display = 'none'
-                    dresses.style.display = 'none'
-                    twoPiece.style.display = 'none'
-                    accessories.style.display = 'none'
-                    shoes.style.display = 'block'
+                    checkClassCategory('shoes')
                     break;
 
                 default:
+                    checkClassCategory('item')
                     break;
             }
         })
@@ -290,6 +343,7 @@ sideNavItems.forEach(
         sideNavItem.addEventListener('click', function (event) {
             switch (event.target.id) {
                 case 'home-li':
+                    console.log(event.target.id)
                     home.style.display = 'block'
                     about.style.display = 'none'
                     categories.style.display = 'none'

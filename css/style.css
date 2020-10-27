@@ -104,6 +104,10 @@ a {
     color: var(--primary);
     
 }
+main .fa-heart,
+main .fa-heart-o {
+    font-size: 25px;
+}
 main .fa-heart {
     color: #ff0000;
 }
@@ -148,10 +152,17 @@ input[type="search"]::-webkit-search-cancel-button {
     width: 17px;
     background: url("../images/icons8-cancel.svg") center center/cover no-repeat;
 }
+.best-sale {
+    max-width: 100%;
+}
+
+.main-overview .card .d-flex > * {
+    flex-basis: 50%;
+}
 .logo-name {
     font-size: 30px;
 }
-.user-img-div {
+.user-img-div { 
     width: 40px;
     height: 40px;
 }
@@ -171,7 +182,8 @@ header .fa-shopping-cart {
     overflow-y: scroll;
     grid-area: main;
 }
-.main-header {
+.main-header.card {
+    background-color: var(--secondary);
     color: white;
 }
 .main-overview {
@@ -180,6 +192,11 @@ header .fa-shopping-cart {
 }
 .item-card-text {
     max-width: 150px;
+}
+.cart-bg {
+    background-color: var(--dark);
+    width: 200px;
+    height: 200px;
 }
 .fav-card-div,
 .category-card-div {
@@ -190,7 +207,8 @@ header .fa-shopping-cart {
     grid-area: footer;
 }
 .card {
-    background-color: var(--secondary);
+    background-color: var(--white);
+    border: none !important;
     -webkit-column-break-inside: avoid;
 }
 .search-box {
@@ -199,6 +217,7 @@ header .fa-shopping-cart {
 }
 .category-btn,
 .category-btn:focus {
+    background-color: var(--white);
     outline: none;
     border: none;
     width: 150px;
