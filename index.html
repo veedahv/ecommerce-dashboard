@@ -336,9 +336,16 @@
                                         <p><i class="fa fa-star" aria-hidden="true"></i> 4.5</p>
                                         <i class="fa fa-heart-o add-to-fav" aria-hidden="true"></i>
                                     </div>
-                                    <p class="item-price">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="item-price">
                                         <span>&#8358;</span> <span>20000</span>
                                     </p>
+                                        <div>
+                                            <label for="qty" class="d-block">Qty</label>
+                                            <input type="number" name="qty" id="qty" class="qty" value="1" min="1" max="10">
+                                        </div>
+                                    </div>
+                                    
                                     <p class="item-name">Some quick example text.</p>
                                     <button class="btn btn-main btn-cart">
                                         <span>Add to cart</span>
@@ -555,7 +562,7 @@
                             <p>Your cart is empty</p>
                             <button class="btn">Start shopping</button>
                         </div>
-                        <div class="row cart-row">
+                        <!-- <div class="row cart-row">
                             <div class="col-md-8">
                                 <div class="card mb-3">
                                     <div class="row no-gutters">
@@ -591,7 +598,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="row">
                             <div class="col-sm-8">
                                 <div class="cart-row-div">
@@ -600,6 +607,9 @@
                             <div class="col-sm-4 cart-row-contain">
                                 <div class="card">
                                     <div class="card-body">
+                                        <button class="clear-btn">
+                                            Clear cart
+                                        </button>
                                         <div class="d-flex flex-column">
                                             <div class="d-flex align-items-center justify-content-between flex-row">
                                                 <p class="items">Items <span class="no-items">2</span></p>

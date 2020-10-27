@@ -22,7 +22,7 @@ const sideNavItems = document.querySelectorAll('.side-nav-list-item'),
     itemCardBox = document.querySelectorAll('.item-card-box'),
     noItems = document.querySelectorAll('.no-items'),
     plusBtnn = document.querySelector('.plus-btn'),
-    subBtnn = document.querySelector('.subtract-btn'),
+    clearBtn = document.querySelector('.clear-btn'),
     clearFav = document.querySelector('.clear-fav'),
     favorites = document.querySelector('#favorites'),
     cart = document.querySelector('#cart'),
@@ -77,11 +77,11 @@ const removeCart = () => {
 }
 
 const newCartItem = (itemPrice, itemImg, itemName) => {
-let itemSpan = 1,
-totalPrice = parseInt(itemPrice) * itemSpan;
+    let itemSpan = 1,
+        totalPrice = parseInt(itemPrice) * itemSpan;
     const newItem = `
     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-12">
                             <div class="card mb-3">
                                 <div class="row no-gutters">
                                     <div class="col-md-4">
@@ -89,42 +89,44 @@ totalPrice = parseInt(itemPrice) * itemSpan;
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
+                                        <div class="row">
+                                        <div class="col-md-6">
                                             <h5 class="card-title">${itemName}</h5>
-                                            <p class="card-text">This is a wider card with supporting text below
-                                                as a natural lead-in to additional content. This content is a
-                                                little bit longer.</p>
-                                            <p class="card-text"><small class="text-muted">Last updated 3 mins
-                                                    ago</small></p>
+                                            <p class="card-text">
+                                            <span class="">&#8358;</span>
+                                            <span class="">${itemPrice}</span>
+                                            </p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="d-flex flex-column">
+                                                    <div class="">
+                                                        <button class="plus-btn">
+                                                            <i class="fa fa-plus" aria-hidden="true"></i>
+                                                        </button>
+                                                        <span>${itemSpan}</span>
+                                                        <button class="subtract-btn">
+                                                            <i class="fa fa-minus" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="">
+                                                    </div>
+                                                    <div class="">
+                                                        <span class="">&#8358;</span>
+                                                        <span class="">${totalPrice}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="d-flex">
-                                <div class="">
-                                    <button class="plus-btn">
-                                        <i class="fa fa-plus" aria-hidden="true"></i>
-                                    </button>
-                                    <span>${itemSpan}</span>
-                                    <button class="subtract-btn">
-                                        <i class="fa fa-minus" aria-hidden="true"></i>
-                                    </button>
-                                </div>
-                                <div class="">
-                                    <span class="">&#8358;</span>
-                                    <span class="">${itemPrice}</span>
-                                </div>
-                                <div class="">
-                                    <span class="">&#8358;</span>
-                                    <span class="">${totalPrice}</span>
                                 </div>
                             </div>
                         </div>
                     </div>`;
 
 
-                    cartRowDiv.innerHTML += newItem;
+    cartRowDiv.innerHTML += newItem;
     // initialPrice.innerHTML = naira + itemPrice.innerText;
     // itemName.innerText = itemPrice.innerHTML;
     // cardImg.src = itemImg.src;
@@ -134,17 +136,17 @@ totalPrice = parseInt(itemPrice) * itemSpan;
     // const cardImg = cartRowDiv.querySelector('.card-img');
     // cardImg.src = itemImg;
     plusBtns.forEach(function addQty(plusBtn) {
-      plusBtn.addEventListener('click', function (event) {
-        console.log('yo')
-        // x = x + 1;
-        itemSpan = itemSpan + 1;
-        console.log(itemSpan);
-        console.log(totalPrice);
-        
-        totalPrice = parseInt(itemPrice) * itemSpan;
-    })  
+        plusBtn.addEventListener('click', function (event) {
+            console.log('yo')
+            // x = x + 1;
+            itemSpan = itemSpan + 1;
+            console.log(itemSpan);
+            console.log(totalPrice);
+
+            totalPrice = parseInt(itemPrice) * itemSpan;
+        })
     })
-    
+
     // subtractBtn.addEventListener('click', function (event) {
     //     console.log('pls work');
     //     x = x - 1;
@@ -170,19 +172,19 @@ const savedProduct = localStorage.getItem('cartRowDivItems');
 //     console.log(JSON.parse(savedProduct));
 // }
 
-    const checkImg = (itemImg) => {
-        for (let i = 0; i < cartRowDiv.childElementCount; i++) {
-            console.log(cartRowDiv.childElementCount);
-            console.log(cartRowDiv.querySelector('.card-img').src);
-            console.log(itemImg);
-            if (cartRowDiv.children[i].querySelector('.card-img').src === itemImg) {
-                console.log('sometjing');
-                cartRowDiv.children[i].remove();
-            } else {
-                console.log('not sometjing');
-            }
+const checkImg = (itemImg) => {
+    for (let i = 0; i < cartRowDiv.childElementCount; i++) {
+        console.log(cartRowDiv.childElementCount);
+        console.log(cartRowDiv.querySelector('.card-img').src);
+        console.log(itemImg);
+        if (cartRowDiv.children[i].querySelector('.card-img').src === itemImg) {
+            console.log('sometjing');
+            cartRowDiv.children[i].remove();
+        } else {
+            console.log('not sometjing');
         }
     }
+}
 
 const newFavItem = (checkFav, favHeart, itemFavCard) => {
     const FavItem = document.createElement('div');
@@ -240,7 +242,7 @@ btnCarts.forEach(function (btnCart) {
         if (btnCart.children[0].innerText === 'Add to cart') {
             console.log('lah');
             btnCart.children[0].innerText = 'Remove from cart'
-            newCartItem(itemPrice, itemImg);
+            newCartItem(itemPrice, itemImg, itemName);
         } else {
             console.log('lahlah');
             checkImg(itemImg)
@@ -267,12 +269,12 @@ notificationLi.addEventListener('blur', function (event) {
     notificationContain.style.display = 'none'
 
 })
-plusBtnn.addEventListener('click', function (event) {
-    console.log('its working');
-    newCartItem();
-    localStorage.setItem('cartRowDivItems', cartRowDiv.innerHTML);
-})
-subBtnn.addEventListener('click', function (event) {
+// plusBtnn.addEventListener('click', function (event) {
+//     console.log('its working');
+//     newCartItem();
+//     localStorage.setItem('cartRowDivItems', cartRowDiv.innerHTML);
+// })
+clearBtn.addEventListener('click', function (event) {
     console.log('its working too');
     localStorage.clear()
     while (cartRowDiv.firstChild) {
