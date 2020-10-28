@@ -19,6 +19,7 @@ const sideNavItems = document.querySelectorAll('.side-nav-list-item'),
     emptyCart = document.querySelector('.empty-cart'),
     favHearts = document.querySelectorAll('.add-to-fav'),
     btnCarts = document.querySelectorAll('.btn-cart'),
+    qtyNos = document.querySelectorAll('.qty'),
     itemCardBox = document.querySelectorAll('.item-card-box'),
     noItems = document.querySelectorAll('.no-items'),
     plusBtnn = document.querySelector('.plus-btn'),
@@ -60,8 +61,6 @@ function itemCount() {
 
 // const sub2Plus1 = a =>  a + b;
 
-
-
 const removeCart = () => {
     if (cartRowDiv.childElementCount === 0) {
         console.log('== 0');
@@ -76,13 +75,12 @@ const removeCart = () => {
     }
 }
 
-const newCartItem = (itemPrice, itemImg, itemName) => {
-    let itemSpan = 1,
-        totalPrice = parseInt(itemPrice) * itemSpan;
+const newCartItem = (itemPrice, itemImg, itemName, itemSpan) => {
+    let totalPrice = parseInt(itemPrice) * itemSpan;
     const newItem = `
-    <div class="row">
+    <div class="row mt-3">
                         <div class="col-md-12">
-                            <div class="card mb-3">
+                            <div class="card">
                                 <div class="row no-gutters">
                                     <div class="col-md-4">
                                         <img src="${itemImg}" class="card-img" alt="...">
@@ -215,6 +213,9 @@ const newFavItem = (checkFav, favHeart, itemFavCard) => {
     }
 }
 
+// qtyNos.forEach(function (qtyNo) {
+   
+// })
 favHearts.forEach(function (favHeart) {
     favHeart.addEventListener('click', function (event) {
         let checkFav = favHeart.classList.contains('fa-heart-o');
@@ -239,10 +240,11 @@ btnCarts.forEach(function (btnCart) {
         let itemPrice = itemPriceCard.querySelector('.item-price').children[1].innerText;
         let itemName = itemPriceCard.querySelector('.item-name').innerText;
         let itemImg = itemPriceCard.querySelector('.card-img-top').src;
+        let itemSpan = 1;
         if (btnCart.children[0].innerText === 'Add to cart') {
             console.log('lah');
             btnCart.children[0].innerText = 'Remove from cart'
-            newCartItem(itemPrice, itemImg, itemName);
+            newCartItem(itemPrice, itemImg, itemName, itemSpan);
         } else {
             console.log('lahlah');
             checkImg(itemImg)
@@ -281,6 +283,12 @@ clearBtn.addEventListener('click', function (event) {
         cartRowDiv.removeChild(cartRowDiv.firstChild)
     }
     removeCart()
+    btnCarts.forEach(function (btnCart) {
+            if (btnCart.children[0].innerText === 'Remove from cart') {
+                console.log('lah');
+                btnCart.children[0].innerText = 'Add to cart'
+            }
+    })
 })
 clearFav.addEventListener('click', function (event) {
     console.log('its working too');

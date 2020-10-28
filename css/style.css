@@ -48,6 +48,9 @@ a {
     color: inherit;
     font-weight: inherit;
 }
+p {
+    max-width: 600px;
+}
 .grid {
     display: grid;
 }
@@ -231,7 +234,17 @@ header .fa-shopping-cart {
     width: 150px;
     background-color: var(--success);
 }
-@media only screen and (min-width: 568px) {
+@media only screen and (max-width: 568px) {
+    .fav-card-div,
+.category-card-div {
+    column-count: 1;
+}
+.about .card .card-title {
+    font-size: 25px;
+}
+.product-row {
+    flex-direction: column-reverse;
+}
 }
 @media only screen and (min-width: 1000px) {
     .grid-container {
@@ -239,7 +252,7 @@ header .fa-shopping-cart {
         grid-template-areas: 
             'side-nav header header'
             'side-nav main right-nav'
-            'side-nav main right-nav';
+            'side-nav footer right-nav';
     }
     .side-nav {
         display: flex;
