@@ -233,6 +233,14 @@ header .fa-shopping-cart {
     border: none !important;
     -webkit-column-break-inside: avoid;
 }
+.side-btn-box {
+    bottom: 60px;
+    right: 20px;
+    z-index: 4;
+}
+.message-div-contain {
+    display: none;
+}
 .search-box {
     outline: none;
     border: none;
@@ -304,6 +312,10 @@ header .fa-shopping-cart {
     }
     .hamburger {
         display: block;
+    }
+    .swiper-button-prev,
+    .swiper-button-next {
+        display: none;
     }
 }
 @media only screen and (min-width: 1000px) {

@@ -38,6 +38,8 @@ const sideNavItems = document.querySelectorAll('.side-nav-list-item'),
     cardCvv = document.querySelector('#card-cvv'),
     cardNo = document.querySelector('#card-no'),
     clearFav = document.querySelector('.clear-fav'),
+    commentBtn = document.querySelector('.comment-btn'),
+    messageContain = document.querySelector('.message-div-contain'),
     sumItemPrice = document.querySelector('.sum-item-price'),
     sumTotalPrice = document.querySelector('.sum-total-price'),
     favorites = document.querySelector('#favorites'),
@@ -48,6 +50,27 @@ let favArray = [];
 
 let t = 0;
 
+let possibleQnA = {
+    "Good evening" : "Evening, how may I help you?",
+    "how long for delivery?" : "5 to 10 working days for standard delivery. 3 to 5 working days for express delivery",
+    "ok" : ":)",
+    "thank you" : "You are welcome",
+};
+
+// function talk() {
+    
+//     var user = document.getElementById("userBox").value;
+//     document.getElementById("userBox").value = "";
+
+//     document.getElementById("chatLog").innerHTML += user+"<br>";
+
+//     if (user in know) {
+//         document.getElementById("chatLog").innerHTML += know[user]+"<br>";
+//     } else {
+//         document.getElementById("chatLog").innerHTML += "I don't understand...<br>";
+//     }
+// }
+
 const savedCartArr = JSON.parse(localStorage.getItem('cartArrayItems'));
 const savedFavArr = JSON.parse(localStorage.getItem('favArrayItems'));
 function itemCount() {
@@ -55,7 +78,7 @@ function itemCount() {
         noItem.innerText = cartRowDiv.childElementCount;
     })
 }
-function displayHome() {    
+function displayHome() {
     home.style.display = 'block'
     about.style.display = 'none'
     categories.style.display = 'none'
@@ -85,6 +108,13 @@ const removeFav = () => {
         clearFavDiv.style.display = 'flex'
     }
 }
+commentBtn.addEventListener('click', (event) => {
+    if (messageContain.style.display === 'none') {
+        messageContain.style.display = 'block'
+    } else {
+        messageContain.style.display = 'none'
+    }
+})
 // function sumItemPriceFunc() {
 //     sumItemPrice.innerText = 
 // }
@@ -135,8 +165,8 @@ const newCartItem = (itemPrice, itemImg, itemName, itemSpan) => {
                             </div>
                         </div>
                     </div>`;
-t = t + totalPrice;
-sumItemPrice.innerHTML = t;
+    t = t + totalPrice;
+    sumItemPrice.innerHTML = t;
     cartRowDiv.innerHTML += newItem;
     const plusBtns = cartRowDiv.querySelectorAll('.plus-btn');
     const subtractBtns = cartRowDiv.querySelectorAll('.subtract-btn');
@@ -173,12 +203,12 @@ sumItemPrice.innerHTML = t;
     })
     itemCount();
 }
-cartHeaderLi.addEventListener('click', function (event) {    
+cartHeaderLi.addEventListener('click', function (event) {
     home.style.display = 'none'
     about.style.display = 'none'
     categories.style.display = 'none'
     favorites.style.display = 'none'
-    cart.style.display = 'block'    
+    cart.style.display = 'block'
 })
 hamburger.addEventListener('click', function (event) {
     sideNav.classList.add('side-nav-show')
@@ -186,13 +216,13 @@ hamburger.addEventListener('click', function (event) {
 close.addEventListener('click', function (event) {
     sideNav.classList.remove('side-nav-show');
 })
-btnShops.forEach( (btnShop) => {
+btnShops.forEach((btnShop) => {
     btnShop.addEventListener('click', function (event) {
         home.style.display = 'none'
         about.style.display = 'none'
         categories.style.display = 'block'
         favorites.style.display = 'none'
-        cart.style.display = 'none'        
+        cart.style.display = 'none'
     })
 })
 const checkImg = (itemImg) => {
@@ -222,8 +252,18 @@ const createFavItem = (itemFavCardPrice, itemFavCardName, itemFavCardImg) => {
                                     <p class="item-name">${itemFavCardName}</p>
                                 </div>
                             </div>`;
-                            favCardDiv.innerHTML += FavItem;
-                        }
+    favCardDiv.innerHTML += FavItem;
+}
+const removeFavItem = (itemFavCardImg) => {
+    favArray.forEach((favArr) => {
+        if (favArr.productImg === itemFavCardImg) {
+            console.log('yah yah');
+            favArray.splice(favArr)
+        } else {
+            console.log('yah nah');
+        }
+    })
+}
 const newFavItem = (checkFav, favHeart, itemFavCard, itemFavCardPrice, itemFavCardName, itemFavCardImg) => {
 
     function checkClass() {
@@ -247,6 +287,7 @@ const newFavItem = (checkFav, favHeart, itemFavCard, itemFavCardPrice, itemFavCa
         favHeart.classList.add('fa-heart-o');
         favHeart.classList.remove('fa-heart');
         checkClass();
+        removeFavItem(itemFavCardImg)
         console.log('its working so');
     }
     const removeHearts = favCardDiv.querySelectorAll('.fa-heart');
@@ -286,10 +327,6 @@ favHearts.forEach(function (favHeart) {
         console.log(favArray);
         newFavItem(checkFav, favHeart, itemFavCard, itemFavCardPrice, itemFavCardName, itemFavCardImg);
         localStorage.setItem('favArrayItems', JSON.stringify(favArray));
-        console.log(favCardDiv.hasChildNodes());
-        console.log(itemFavCard);
-
-
     })
 })
 btnCarts.forEach(function (btnCart) {
@@ -308,12 +345,12 @@ btnCarts.forEach(function (btnCart) {
         }
         cartArray.push(cartObject);
         console.log(cartArray);
-    
+
         if (btnCart.children[0].innerText === 'Add to cart') {
             console.log('lah');
             btnCart.children[0].innerText = 'Remove from cart'
             newCartItem(itemPrice, itemImg, itemName, itemSpan);
-        localStorage.setItem('cartArrayItems', JSON.stringify(cartArray));
+            localStorage.setItem('cartArrayItems', JSON.stringify(cartArray));
         } else {
             console.log('lahlah');
             checkImg(itemImg)
@@ -328,19 +365,19 @@ btnCarts.forEach(function (btnCart) {
     })
 })
 const itemBoxContainers = document.querySelectorAll('.item-card-box');
-    function checkClass() {
-        console.log(favCardDiv.childElementCount);
-        for (let i = 0; i < favCardDiv.childElementCount; i++) {
-            console.log(favCardDiv.children[i].children[1].className);
-            console.log(itemFavCard.children[1].className);
-            if (favCardDiv.children[i].querySelector('.card-img-top').src === itemFavCard.querySelector('.card-img-top').src) {
-                console.log('sometjing');
-                favCardDiv.children[i].remove();
-            } else {
-                console.log('not sometjing');
-            }
+function checkClass() {
+    console.log(favCardDiv.childElementCount);
+    for (let i = 0; i < favCardDiv.childElementCount; i++) {
+        console.log(favCardDiv.children[i].children[1].className);
+        console.log(itemFavCard.children[1].className);
+        if (favCardDiv.children[i].querySelector('.card-img-top').src === itemFavCard.querySelector('.card-img-top').src) {
+            console.log('sometjing');
+            favCardDiv.children[i].remove();
+        } else {
+            console.log('not sometjing');
         }
     }
+}
 if (savedCartArr) {
     JSON.parse(localStorage.getItem('cartArrayItems'));
     // localStorage.getItem('cartArrayItems');
@@ -378,7 +415,7 @@ cartArray.forEach((cartArr) => {
 
     newCartItem(itemPrice, itemImg, itemName, itemSpan);
 })
-itemBoxContainers.forEach( (itemBoxContainer) => {
+itemBoxContainers.forEach((itemBoxContainer) => {
     let favHrt = itemBoxContainer.querySelector('.add-to-fav');
     for (let i = 0; i < favCardDiv.childElementCount; i++) {
         if (favCardDiv.children[i].querySelector('.card-img-top').src === itemBoxContainer.querySelector('.card-img-top').src) {
@@ -387,8 +424,8 @@ itemBoxContainers.forEach( (itemBoxContainer) => {
             favHrt.classList.remove('fa-heart-o');
         } else {
             console.log('not sometjing');
-        }   
-    }     
+        }
+    }
     for (let i = 0; i < cartRowDiv.childElementCount; i++) {
         let btnCart = itemBoxContainer.querySelector('.btn-cart');
         if (cartRowDiv.children[i].querySelector('.card-img').src === itemBoxContainer.querySelector('.card-img-top').src) {
@@ -396,8 +433,8 @@ itemBoxContainers.forEach( (itemBoxContainer) => {
             btnCart.children[0].innerText = 'Remove from cart';
         } else {
             console.log('not sometjing');
-        }   
-    }     
+        }
+    }
 })
 notificationLi.addEventListener('click', function (event) {
     console.log('its working noti');
@@ -501,7 +538,8 @@ sideNavItems.forEach(
         sideNavItem.addEventListener('click', function (event) {
             switch (event.target.id) {
                 case 'home-li':
-                    console.log(event.target.id)
+                    event.target.classList.add('active')
+                    console.log(event.target.className)
                     home.style.display = 'block'
                     about.style.display = 'none'
                     categories.style.display = 'none'
