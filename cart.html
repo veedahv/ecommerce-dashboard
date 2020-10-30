@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1.0">
+    <meta name="description" content="female, clothing, clothes, shoes, tops, dresses">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
+    <!-- <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Dashboard</title>
+    <style>
+        .swiper-container {
+            width: 100%;
+            /* height: 300px; */
+        }
+
+        .swiper-slide {
+            background: #fff;
+            /* width: 300px; */
+
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grid-container grid">
+        <header class="header d-flex justify-content-end align-items-center px-4 py-2 border-bottom">
+            <div class="d-flex flex-row align-items-center">
+                <!-- <div class="d-flex flex-row align-items-center">
+                    <div class="user-img-div">
+                        <img src="images/user-img.jpg" class="user-img h-100 w-100 rounded-circle" alt="">
+                    </div>
+                    <p class="mb-0 ml-2">Username</p>
+                </div> -->
+                <ul class="side-nav-list d-flex mx-2 py-0 my-0 flex-row align-items-center h-100">
+                    <li class="side-nav-list-item mx-2 py-0">
+                        <span class="position-relative">
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                            <span id="cart-no"
+                                class="position-absolute no-items d-flex align-items-center justify-content-center rounded-circle text-center">0</span>
+                        </span>
+                        <span class="ml-1 mobile-none">Cart</span>
+                    </li>
+                    <li class="side-nav-list-item notification-li ml-2 py-0"><i class="fa fa-bell"
+                            aria-hidden="true"></i>
+                        <span class="mobile-none">Notification</span></li>
+                </ul>
+            </div>
+            <div class="notification-contain position-fixed">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <p class="mb-0">Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                Laboriosam,
+                                eius.</p>
+                            <div>
+                                <p>Lorem, ipsum dolor.</p>
+                                <p class="mb-0">Lorem, ipsum dolor.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <p class="mb-0">Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                Laboriosam,
+                                eius.</p>
+                            <div>
+                                <p>Lorem, ipsum dolor.</p>
+                                <p class="mb-0">Lorem, ipsum dolor.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <aside class="side-nav py-3 px-4 border-right">
+            <div class="pb-3 text-center">
+                <h1 class="logo-name">VeeShop</h1>
+            </div>
+            <div class="d-flex flex-row align-items-center">
+                <div class="user-img-div">
+                    <img src="images/user-img.jpg" class="user-img h-100 w-100 rounded-circle" alt="">
+                </div>
+                <p class="mb-0 ml-2">Username</p>
+            </div>
+            <ul class="side-nav-list py-4">
+                <li class="side-nav-list-item py-3 home-li">
+                    <a href="index.html">
+                    <i class="fa fa-home" aria-hidden="true"></i> Home
+                </a>
+            </li>
+                <li class="side-nav-list-item py-3 about-li">
+                    <a href="about.html">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    About</a>
+                </li>
+                <li class="side-nav-list-item py-3 categories-li">
+                    <a href="categories.html">
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                    Categories</a>
+                </li>
+                <li class="side-nav-list-item py-3 favorites-li">
+                    <a href="favorites.html">
+                    <i class="fa fa-heart" aria-hidden="true"></i>
+                    Favorites</a>
+                </li>
+                <li class="side-nav-list-item py-3 cart-li">
+                    <a href="cart.html">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    Cart</a>
+                </li>
+                <li class="side-nav-list-item py-3 logout-li">
+                    <a href="login.html">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                        Log Out</a>
+                </li>
+            </ul>
+        </aside>
+        <main class="main position-relative">
+            <div class="p-3 h-100">
+               
+                <section id="cart" class="cart h-100">
+                    <div class="cart h-100">
+                        <div class="flex-column justify-content-center align-items-center h-100 empty-cart">
+                            <div></div>
+                            <div class="cart-bg d-flex align-items-center justify-content-center rounded-circle">
+                                <i class="fa fa-5x fa-shopping-cart" aria-hidden="true"></i>
+                            </div>
+                            <p>Your cart is empty</p>
+                            <button class="btn btn-main">Start shopping</button>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="cart-row-div">
+                                </div>
+                            </div>
+                            <div class="col-sm-4 cart-row-contain">
+                                <div class="card h-100 mt-3">
+                                    <div class="card-body">
+                                        <button class="clear-btn btn btn-main">
+                                            Clear cart
+                                        </button>
+                                        <div class="d-flex flex-column mt-3">
+                                            <div class="d-flex align-items-center justify-content-between flex-row">
+                                                <p class="items">Items <span class="no-items">2</span></p>
+                                                <p class="price">&#8358; <span>2</span></p>
+                                            </div>
+                                            <hr>
+                                            <div>
+                                                <h3>Delivery Location</h3>
+                                            </div>
+                                            <div>
+                                                <select name="" id="delivery-location" class="w-100 px-1 py-2">
+                                                    <option value="1">Standard delivery - &#8358; <span>2000</span>
+                                                    </option>
+                                                    <option value="2">Standard delivery - &#8358; <span>2000</span>
+                                                    </option>
+                                                    <option value="3">Standard delivery - &#8358; <span>2000</span>
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <h3>Delivery Option</h3>
+                                            </div>
+                                            <div>
+                                                <select name="" id="delivery-option" class="w-100 px-1 py-2">
+                                                    <option value="1">Standard delivery - &#8358; <span
+                                                            class="delivery-mode">2000</span>
+                                                    </option>
+                                                    <option value="2">Express delivery - &#8358; <span
+                                                            class="delivery-mode">5000</span>
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <h3>Payment Method</h3>
+                                            </div>
+                                            <div>
+                                                <div class="d-flex align-items-center justify-content-between flex-row">
+                                                    <div class="">
+                                                        <label for="card-no">Your card number:</label>
+                                                        <input type="number" name="card-no" id="card-no">
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex align-items-center justify-content-between flex-row">
+                                                    <div class="">
+                                                        <label for="card-cvv" class="d-block">CVV:</label>
+                                                        <input type="number" name="card-cvv" id="card-cvv" max="3">
+                                                    </div>
+                                                    <div class="">
+                                                        <label for="card-date">Expiry date:</label>
+                                                        <input type="date" name="card-date" id="card-date"
+                                                            pattern="\d{2}-\d{2}">
+                                                    </div>
+                                                </div>
+                                                <label for="bday">Enter your birthday:
+                                                    <input type="date" name="bday" required pattern="\d{4}-\d{2}-\d{2}">
+                                                </label>
+                                                <div class="d-flex align-items-center justify-content-between flex-row">
+                                                    <p class="">Card type:</p>
+                                                    <select name="" id="delivery-option">
+                                                        <option value="1">Credit
+                                                        </option>
+                                                        <option value="2">Debit
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="d-flex align-items-center justify-content-between flex-row">
+                                                <p class="items">Total</p>
+                                                <p class="price">&#8358; <span>2</span></p>
+                                            </div>
+                                            <button class="btn-main btn">CHECK OUT</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+        <footer class="footer d-flex justify-content-between align-items-center px-4 py-3">
+            <div class="footer-copyright d-flex align-items-center">
+                <h1 class="logo-name mr-2">VeeShop</h1>
+                <p class="mb-0">Copyright</p>
+            </div>
+            <div class="footer-sign">
+                <a href="">FAQ</a>
+            </div>
+        </footer>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <!-- Swiper JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        var mySwiper = new Swiper('.swiper-container', {
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            slidesPerView: 'auto',
+            spaceBetween: 30,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        })
+    </script>
+    <script src="js/general-script.js"></script>
+    <script src="js/cart.js"></script>
+</body>
+
+</html>

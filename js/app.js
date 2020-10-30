@@ -63,15 +63,15 @@ function passwordCheck() {
         password2.className = 'form-control success';
     }
 }
-function checkCaps() {
-    if (event.getModifierState("CapsLock")) {
-        capText.style.display = "block";
-    } else {
-        capText.style.display = "none"
-    }
+// function checkCaps() {
+//     if (event.getModifierState("CapsLock")) {
+//         capText.style.display = "block";
+//     } else {
+//         capText.style.display = "none"
+//     }
 
-}
-password.addEventListener('keyup', checkCaps);
+// }
+// password.addEventListener('keyup', checkCaps);
 
 // Event listeners
 

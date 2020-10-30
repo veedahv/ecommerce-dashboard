@@ -1,3 +1,11 @@
+form {
+    max-width: 450px;
+    border: 1px solid black;
+}
+.btn-back {
+    background-color: #494259;
+    color: #ffffff;
+}
 small {
     color: red;
     visibility: hidden;
