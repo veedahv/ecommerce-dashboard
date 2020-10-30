@@ -141,13 +141,13 @@ select {
 .search-contain {
     background-color: #ffffff;
     color: black;
-    width: 250px;
+    max-width: 350px;
     border-radius: 8px;
 }
 .search-contain .search-box {
     background-color: #ffffff;
     color: black;
-    width: 100%;
+    border-radius: 8px;
 }
 input[type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: none;
@@ -166,8 +166,8 @@ input::-webkit-calendar-picker-indicator {
 .swiper-slide.item-card-box {
     max-width: 300px;
 }
-.best-sale-card {
-    max-width: 320px;
+.swiper-slide.best-sale-card {
+    max-width: 195px;
 }
 .best-sale {
     max-width: 160px;
