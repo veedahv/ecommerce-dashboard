@@ -54,7 +54,7 @@
                         <span class="position-relative">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                             <span id="cart-no"
-                                class="position-absolute no-items d-flex align-items-center justify-content-center rounded-circle text-center">0</span>
+                                class="position-absolute no-items align-items-center justify-content-center rounded-circle text-center">0</span>
                         </span>
                         <span class="ml-1 mobile-none">Cart</span>
                     </li>
@@ -66,27 +66,20 @@
             <div class="notification-contain position-fixed">
                 <div class="card">
                     <div class="card-body">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <p class="mb-0">Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                                Laboriosam,
-                                eius.</p>
+                        <div class="d-flex noti-card flex-column justify-content-between">
                             <div>
-                                <p>Lorem, ipsum dolor.</p>
-                                <p class="mb-0">Lorem, ipsum dolor.</p>
+                                <p class="mb-1 noti-date">01/11/2020</p>
+                                <p class="mb-1 noti-time">7:30 AM</p>
                             </div>
+                            <p class="mb-0 noti-txt">Welcome to VeeShop. Find your quality female wears here.</p>
                         </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex flex-column justify-content-between">
+                        <div class="d-flex noti-card flex-column justify-content-between">
+                            <hr>
                             <div>
-                                <p class="mb-1">Lorem, ipsum dolor.</p>
-                                <p class="mb-1">Lorem, ipsum dolor.</p>
+                                <p class="mb-1 noti-date">01/11/2020</p>
+                                <p class="mb-1 noti-time">7:30 AM</p>
                             </div>
-                            <p class="mb-0">Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                                Laboriosam,
-                                eius.</p>
+                            <p class="mb-0 noti-txt">Welcome to VeeShop. Find your quality female wears here.</p>
                         </div>
                     </div>
                 </div>
@@ -815,12 +808,67 @@
                             <p>Your cart is empty</p>
                             <button class="btn btn-main btn-shop">Start shopping</button>
                         </div>
+                        <!-- <div class="flex-column d-none justify-content-center align-items-center h-100 position-absolute">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div>
+                                        <h3>Payment Method</h3>
+                                    </div>
+                                    <div class="w-100">
+                                        <div class="w-100 d-flex align-items-center justify-content-between flex-row">
+                                            <div class="w-100">
+                                                <label for="card-no" class="d-block">Your card
+                                                    number:</label>
+                                                <input type="number" name="card-no" id="card-no"
+                                                    class="p-1 w-100">
+                                                <p class="card-no-error"></p>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="d-flex align-items-center justify-content-between flex-row">
+                                            <div class="">
+                                                <label for="card-cvv" class="d-block">CVV:</label>
+                                                <input type="number" name="card-cvv" id="card-cvv"
+                                                    class="p-1" min="1" max="3">
+                                                <p class="cvv-error"></p>
+                                            </div>
+                                            <div class="">
+                                                <label for="card-date" class="d-block">Expiry date:</label>
+                                                <input type="month" name="card-date" id="card-date"
+                                                    class="p-1" min="2020-06" max="2024-09" required
+                                                    pattern="[0-9]{2}-[0-9]{2}">
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between flex-row">
+                                            <div class="">
+                                                <p class="">Card type:</p>
+                                                <select name="" id="delivery-option" class="p-1">
+                                                    <option value="1">Credit card
+                                                    </option>
+                                                    <option value="2">Debit card
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="">
+                                                <p class="">Card type:</p>
+                                                <select name="" id="delivery-option" class="p-1">
+                                                    <option value="1">Credit card
+                                                    </option>
+                                                    <option value="2">Debit card
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
                         <div class="row">
-                            <div class="col-sm-8">
+                            <div class="col-sm-7">
                                 <div class="cart-row-div">
                                 </div>
                             </div>
-                            <div class="col-sm-4 cart-row-contain">
+                            <div class="col-sm-5 cart-row-contain">
                                 <div class="card h-100 mt-3">
                                     <div class="card-body">
                                         <button class="clear-btn btn btn-main">
@@ -862,45 +910,6 @@
                                                                 class="delivery-mode">5000</span>
                                                         </option>
                                                     </select>
-                                                </div>
-                                                <div>
-                                                    <h3>Payment Method</h3>
-                                                </div>
-                                                <div>
-                                                    <div
-                                                        class="d-flex align-items-center justify-content-between flex-row">
-                                                        <div class="">
-                                                            <label for="card-no" class="d-block">Your card
-                                                                number:</label>
-                                                            <input type="number" name="card-no" id="card-no"
-                                                                class="p-1 w-100">
-                                                            <p class="card-no-error"></p>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="d-flex align-items-center justify-content-between flex-row">
-                                                        <div class="">
-                                                            <label for="card-cvv" class="d-block">CVV:</label>
-                                                            <input type="number" name="card-cvv" id="card-cvv"
-                                                                class="p-1" min="1" max="3">
-                                                            <p class="cvv-error"></p>
-                                                        </div>
-                                                        <div class="">
-                                                            <label for="card-date" class="d-block">Expiry date:</label>
-                                                            <input type="month" name="card-date" id="card-date"
-                                                                class="p-1" min="2020-06" max="2024-09" required
-                                                                pattern="[0-9]{2}-[0-9]{2}">
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex align-items-center justify-content-end flex-row">
-                                                        <p class="mr-3">Card type:</p>
-                                                        <select name="" id="delivery-option" class="p-1">
-                                                            <option value="1">Credit card
-                                                            </option>
-                                                            <option value="2">Debit card
-                                                            </option>
-                                                        </select>
-                                                    </div>
                                                 </div>
                                                 <hr>
                                                 <div class="d-flex align-items-center justify-content-between flex-row">

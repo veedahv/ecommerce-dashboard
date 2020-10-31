@@ -22,11 +22,10 @@ const sideNavItems = document.querySelectorAll('.side-nav-list-item'),
     emptyCart = document.querySelector('.empty-cart'),
     emptyFav = document.querySelector('.empty-fav'),
     clearFavDiv = document.querySelector('.clear-fav-div'),
-    cartSpan = document.querySelector('.cart-no'),
+    cartSpan = document.querySelector('#cart-no'),
     favHearts = document.querySelectorAll('.add-to-fav'),
     btnShops = document.querySelectorAll('.btn-shop'),
     btnCarts = document.querySelectorAll('.btn-cart'),
-    qtyNos = document.querySelectorAll('.qty'),
     itemCardBox = document.querySelectorAll('.item-card-box'),
     noItems = document.querySelectorAll('.no-items'),
     plusBtnn = document.querySelector('.plus-btn'),
@@ -73,6 +72,22 @@ let possibleQnA = {
 
 const savedCartArr = JSON.parse(localStorage.getItem('cartArrayItems'));
 const savedFavArr = JSON.parse(localStorage.getItem('favArrayItems'));
+if (savedCartArr) {
+    JSON.parse(localStorage.getItem('cartArrayItems'));
+    console.log(savedCartArr);
+    savedCartArr.forEach((cartArrayItem) => {
+        cartArray.push(cartArrayItem)
+    })
+    localStorage.setItem('cartArrayItems', JSON.stringify(cartArray));
+}
+if (savedFavArr) {
+    localStorage.getItem('favArrayItems');
+    console.log(savedFavArr);
+    savedFavArr.forEach((favArrayItem) => {
+        favArray.push(favArrayItem)
+    })
+    localStorage.setItem('favArrayItems', JSON.stringify(favArray));
+}
 function itemCount() {
     noItems.forEach(function (noItem) {
         noItem.innerText = cartRowDiv.childElementCount;
@@ -91,10 +106,12 @@ const removeCart = () => {
         console.log('== 0');
         cartRowContain.style.display = 'none'
         emptyCart.style.display = 'flex'
+        cartSpan.style.display = 'flex'
     } else {
         console.log('!= 0');
         cartRowContain.style.display = 'block'
         emptyCart.style.display = 'none'
+        cartSpan.style.display = 'none'
     }
 }
 const removeFav = () => {
@@ -238,7 +255,31 @@ const checkImg = (itemImg) => {
         }
     }
 }
-
+const removeFavItem = (itemFavCardImg) => {
+    favArray.forEach((favArr) => {
+        if (favArr.productImg === itemFavCardImg) {
+            // localStorage.getItem('favArrayItems');
+            favArray.splice(favArr, favArr);
+            localStorage.setItem('favArrayItems', JSON.stringify(favArray));
+            console.log('yah yah 1');
+            console.log(favArray)
+        } else {
+            console.log('lll');
+            
+        }
+    })
+}
+const removeCartItem = (itemImg) => {
+    cartArray.forEach((cartArr) => {
+        if (cartArr.productImg === itemImg) {
+            JSON.parse(localStorage.getItem('cartArrayItems'));
+            // cartArray.splice(cartArr);
+            localStorage.setItem('cartArrayItems', JSON.stringify(cartArray));
+            console.log('yah yah 2');
+            console.log(cartArray)
+        }
+    })
+}
 const createFavItem = (itemFavCardPrice, itemFavCardName, itemFavCardImg) => {
     const FavItem = `<div class="card item-card-box mb-3">
                                 <img src=${itemFavCardImg} class="card-img-top" alt="...">
@@ -253,15 +294,24 @@ const createFavItem = (itemFavCardPrice, itemFavCardName, itemFavCardImg) => {
                                 </div>
                             </div>`;
     favCardDiv.innerHTML += FavItem;
-}
-const removeFavItem = (itemFavCardImg) => {
-    favArray.forEach((favArr) => {
-        if (favArr.productImg === itemFavCardImg) {
-            console.log('yah yah');
-            favArray.splice(favArr)
-        } else {
-            console.log('yah nah');
-        }
+    const removeHearts = favCardDiv.querySelectorAll('.fa-heart');
+    removeHearts.forEach(function (removeHeart) {
+        removeHeart.addEventListener('click', function (event) {
+            let itemRemoveCard = removeHeart.closest('.item-card-box');
+            console.log(categoryCardDiv.childElementCount);
+            for (let i = 0; i < categoryCardDiv.childElementCount; i++) {
+                if (categoryCardDiv.children[i].querySelector('.card-img-top').src === itemRemoveCard.querySelector('.card-img-top').src) {
+                    console.log('sometjing');
+                    categoryCardDiv.children[i].querySelector('.add-to-fav').classList.add('fa-heart-o');
+                    categoryCardDiv.children[i].querySelector('.add-to-fav').classList.remove('fa-heart');
+                } else {
+                    console.log('not sometjing');
+                }
+            }
+            itemRemoveCard.remove();
+            removeFavItem(itemFavCardImg);
+            removeFav();
+        })
     })
 }
 const newFavItem = (checkFav, favHeart, itemFavCard, itemFavCardPrice, itemFavCardName, itemFavCardImg) => {
@@ -290,34 +340,27 @@ const newFavItem = (checkFav, favHeart, itemFavCard, itemFavCardPrice, itemFavCa
         removeFavItem(itemFavCardImg)
         console.log('its working so');
     }
-    const removeHearts = favCardDiv.querySelectorAll('.fa-heart');
-    removeHearts.forEach(function (removeHeart) {
-        removeHeart.addEventListener('click', function (event) {
-            let itemRemoveCard = removeHeart.closest('.item-card-box');
-            console.log(categoryCardDiv.childElementCount);
-            for (let i = 0; i < categoryCardDiv.childElementCount; i++) {
-                if (categoryCardDiv.children[i].querySelector('.card-img-top').src === itemRemoveCard.querySelector('.card-img-top').src) {
-                    console.log('sometjing');
-                    favHeart.classList.add('fa-heart-o');
-                    favHeart.classList.remove('fa-heart');
-                } else {
-                    console.log('not sometjing');
-                }
-            }
-            itemRemoveCard.remove();
-        })
-    })
 }
-
+favArray.forEach((favArr) => {
+    itemFavCardImg = favArr.productImg;
+    itemFavCardName = favArr.productName;
+    itemFavCardPrice = favArr.productPrice;
+    createFavItem(itemFavCardPrice, itemFavCardName, itemFavCardImg);
+})
+cartArray.forEach((cartArr) => {
+    itemImg = cartArr.productImg;
+    itemName = cartArr.productName;
+    itemPrice = cartArr.productPrice;
+    itemSpan = cartArr.productQuantity;
+    newCartItem(itemPrice, itemImg, itemName, itemSpan);
+})
 favHearts.forEach(function (favHeart) {
     favHeart.addEventListener('click', function (event) {
         let checkFav = favHeart.classList.contains('fa-heart-o');
-        console.log(checkFav);
         let itemFavCard = favHeart.closest('.item-card-box');
         let itemFavCardName = itemFavCard.querySelector('.item-name').innerText;
         let itemFavCardPrice = itemFavCard.querySelector('.item-price').children[1].innerText;
         let itemFavCardImg = itemFavCard.querySelector('.card-img-top').src;
-        console.log('its working');
         let favObject = {
             productImg: itemFavCardImg,
             productName: itemFavCardName,
@@ -327,6 +370,7 @@ favHearts.forEach(function (favHeart) {
         console.log(favArray);
         newFavItem(checkFav, favHeart, itemFavCard, itemFavCardPrice, itemFavCardName, itemFavCardImg);
         localStorage.setItem('favArrayItems', JSON.stringify(favArray));
+        removeFav();
     })
 })
 btnCarts.forEach(function (btnCart) {
@@ -336,7 +380,6 @@ btnCarts.forEach(function (btnCart) {
         let itemName = itemPriceCard.querySelector('.item-name').innerText;
         let itemImg = itemPriceCard.querySelector('.card-img-top').src;
         let itemSpan = 1;
-
         let cartObject = {
             productImg: itemImg,
             productName: itemName,
@@ -345,7 +388,6 @@ btnCarts.forEach(function (btnCart) {
         }
         cartArray.push(cartObject);
         console.log(cartArray);
-
         if (btnCart.children[0].innerText === 'Add to cart') {
             console.log('lah');
             btnCart.children[0].innerText = 'Remove from cart'
@@ -354,13 +396,9 @@ btnCarts.forEach(function (btnCart) {
         } else {
             console.log('lahlah');
             checkImg(itemImg)
-            btnCart.children[0].innerText = 'Add to cart'
+            btnCart.children[0].innerText = 'Add to cart';
+            removeCartItem(itemImg);
         }
-        console.log(itemImg);
-        console.log(itemPrice);
-        console.log(itemName);
-        console.log('its working');
-        console.log(cartRowDiv.hasChildNodes());
         removeCart()
     })
 })
@@ -378,43 +416,6 @@ function checkClass() {
         }
     }
 }
-if (savedCartArr) {
-    JSON.parse(localStorage.getItem('cartArrayItems'));
-    // localStorage.getItem('cartArrayItems');
-    console.log(savedCartArr);
-    localStorage.setItem('cartArrayItems', JSON.stringify(cartArray));
-    savedCartArr.forEach((cartArrayItem) => {
-        cartArray.push(cartArrayItem)
-    })
-} else {
-    console.log('local empty');
-}
-if (savedFavArr) {
-    localStorage.getItem('favArrayItems');
-    console.log(savedFavArr);
-    localStorage.setItem('favArrayItems', JSON.stringify(favArray));
-    savedFavArr.forEach((favArrayItem) => {
-        favArray.push(favArrayItem)
-    })
-} else {
-    console.log('local empty');
-}
-favArray.forEach((favArr) => {
-    itemFavCardImg = favArr.productImg;
-    itemFavCardName = favArr.productName;
-    itemFavCardPrice = favArr.productPrice;
-    createFavItem(itemFavCardPrice, itemFavCardName, itemFavCardImg);
-})
-cartArray.forEach((cartArr) => {
-    itemImg = cartArr.productImg;
-    itemName = cartArr.productName;
-    itemPrice = cartArr.productPrice;
-    itemSpan = cartArr.productQuantity;
-    totalPrice = cartArr.productSum;
-    console.log(itemImg);
-
-    newCartItem(itemPrice, itemImg, itemName, itemSpan);
-})
 itemBoxContainers.forEach((itemBoxContainer) => {
     let favHrt = itemBoxContainer.querySelector('.add-to-fav');
     for (let i = 0; i < favCardDiv.childElementCount; i++) {
@@ -426,11 +427,12 @@ itemBoxContainers.forEach((itemBoxContainer) => {
             console.log('not sometjing');
         }
     }
-    for (let i = 0; i < cartRowDiv.childElementCount; i++) {
         let btnCart = itemBoxContainer.querySelector('.btn-cart');
+    for (let i = 0; i < cartRowDiv.childElementCount; i++) {
         if (cartRowDiv.children[i].querySelector('.card-img').src === itemBoxContainer.querySelector('.card-img-top').src) {
             console.log('sometjing');
-            btnCart.children[0].innerText = 'Remove from cart';
+            // btnCart.children[0].innerText = 'Remove from cart';
+            // console.log(btnCart.children[0].innerText)
         } else {
             console.log('not sometjing');
         }
@@ -450,8 +452,7 @@ notificationLi.addEventListener('blur', function (event) {
 
 })
 clearBtn.addEventListener('click', function (event) {
-    console.log('its working too');
-    localStorage.clear()
+    localStorage.removeItem('cartArrayItems');
     while (cartRowDiv.firstChild) {
         cartRowDiv.removeChild(cartRowDiv.firstChild)
     }
@@ -464,8 +465,7 @@ clearBtn.addEventListener('click', function (event) {
     })
 })
 clearFav.addEventListener('click', function (event) {
-    console.log('its working too');
-    localStorage.clear()
+    localStorage.removeItem('favArrayItems');
     while (favCardDiv.firstChild) {
         favCardDiv.removeChild(favCardDiv.firstChild)
     }
