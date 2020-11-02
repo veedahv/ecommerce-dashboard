@@ -87,18 +87,14 @@ function requestMessage() {
     let checkPw2 = password2.classList.contains('success');
     let checkPw1 = password1.classList.contains('success');
 
-    if (checkName === checkEmail === checkPw1 === checkPw2) {
-        if (checkName === true) {
-            thanks.style.color = 'green'
-            thanks.innerText = 'Thank you for registering';
+    if (checkName === checkEmail) {
+        if (checkEmail === checkPw1) {
+            if (checkPw1 === checkPw2) {
+                if (checkName === true) {
+                    location.href='index.html';
+                }
+            }
         }
-        else {
-            thanks.style.color = 'red'
-            thanks.innerText = 'There is an error somewhere';
-        }
-    } else {
-        thanks.style.color = 'red'
-        thanks.innerText = 'There is an error somewhere';
     }
 }
 

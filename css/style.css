@@ -1,42 +1,29 @@
 :root {
     --white: #ffffff;
+    --success: #28a745;
     --primary: #494259;
     --secondary: #D9AC84;
     --tertiary: #D9C9BA;
-    --success: #28a745;
     --info: #17a2b8;
     --warning: #ffc107;
     --danger: #dc3545;
     --light: #f8f9fa;
     --dark: #343a40;
-    --font-family-sans-serif: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-    --font-family-monospace: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
 }
+/* fafafd */
+    /* --primary: #494259;
+    --secondary: #D9AC84;
+    --tertiary: #D9C9BA; */
+    /* --primary: #7644e1;
+    --secondary: #ffb700;
+    --tertiary: #fafafd; */
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    /* border: 1px solid red; */
 }
-/* Color Theme Swatches in Hex */
-.Blurred-Modern-Kitchen-with-Retro-Instagram-Style-Filter-1-hex { color: #494259; }
-.Blurred-Modern-Kitchen-with-Retro-Instagram-Style-Filter-2-hex { color: #D9AC84; }
-.Blurred-Modern-Kitchen-with-Retro-Instagram-Style-Filter-3-hex { color: #D9C9BA; }
-.Blurred-Modern-Kitchen-with-Retro-Instagram-Style-Filter-4-hex { color: #BF9278; }
-.Blurred-Modern-Kitchen-with-Retro-Instagram-Style-Filter-5-hex { color: #8C5D5D; }
-
-/* Color Theme Swatches in RGBA */
-.Blurred-Modern-Kitchen-with-Retro-Instagram-Style-Filter-1-rgba { color: rgba(73, 66, 89, 1); }
-.Blurred-Modern-Kitchen-with-Retro-Instagram-Style-Filter-2-rgba { color: rgba(216, 171, 132, 1); }
-.Blurred-Modern-Kitchen-with-Retro-Instagram-Style-Filter-3-rgba { color: rgba(216, 200, 186, 1); }
-.Blurred-Modern-Kitchen-with-Retro-Instagram-Style-Filter-4-rgba { color: rgba(191, 146, 120, 1); }
-.Blurred-Modern-Kitchen-with-Retro-Instagram-Style-Filter-5-rgba { color: rgba(140, 92, 92, 1); }
-
-/* Color Theme Swatches in HSLA */
-.Blurred-Modern-Kitchen-with-Retro-Instagram-Style-Filter-1-hsla { color: hsla(258, 14, 30, 1); }
-.Blurred-Modern-Kitchen-with-Retro-Instagram-Style-Filter-2-hsla { color: hsla(28, 52, 68, 1); }
-.Blurred-Modern-Kitchen-with-Retro-Instagram-Style-Filter-3-hsla { color: hsla(28, 28, 79, 1); }
-.Blurred-Modern-Kitchen-with-Retro-Instagram-Style-Filter-4-hsla { color: hsla(22, 35, 61, 1); }
-.Blurred-Modern-Kitchen-with-Retro-Instagram-Style-Filter-5-hsla { color: hsla(0, 20, 45, 1); }
 body {
     background-color: var(--tertiary);
     overflow: hidden;
@@ -72,6 +59,7 @@ p {
 .btn-main {
     color: #fff;
     background-color: var(--primary);
+    font-size: 15px !important;
 }
 .btn-main.active,
 .btn-main:hover {
@@ -94,6 +82,26 @@ p {
 }
 .header {
     grid-area: header;
+}
+.swiper-container {
+    width: 100%;
+}
+.swiper-slide {
+    background: #fff;
+    height: 100%;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
 }
 .header,
 .footer {
@@ -143,10 +151,13 @@ select {
     text-decoration: none;
     color: inherit;
 }
+.main-header h1 {
+    max-width: 500px;
+}
 .search-contain {
     background-color: #ffffff;
     color: black;
-    max-width: 350px;
+    max-width: 480px;
     border-radius: 8px;
 }
 .search-contain .search-box {
@@ -163,16 +174,24 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 input::-webkit-calendar-picker-indicator {
     display: none;
-  }
-.datalist-search {
-    top: 0;
-    left: 0;
+}
+.item-name {
+    font-size: 14px;
+}
+.cart-item-name {
+    font-size: 14px;
 }
 .swiper-slide.item-card-box {
     max-width: 300px;
 }
+.swiper-slide.item-card-box img {
+    height: 360px;
+}
 .swiper-slide.best-sale-card {
     max-width: 195px;
+}
+.swiper-slide.best-sale-card img {
+    height: 146px;
 }
 .best-sale {
     max-width: 160px;
@@ -199,6 +218,13 @@ input::-webkit-calendar-picker-indicator {
     background-color: var(--primary);
     color: #ffffff;
 }
+#noti-no {
+    top: 3px;
+    right: 3px;
+    height: 8px;
+    width: 8px;
+    background-color: var(--primary);
+}
 header .fa-shopping-cart {
     font-size: 20px;
 }
@@ -208,7 +234,13 @@ header .fa-shopping-cart {
 }
 .main-header.card {
     background-color: var(--secondary);
+    box-shadow: 0 0 0 0 rgba(0,0,0,0);
     color: white;
+}
+.card {
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 5px;
 }
 .main-overview {
     grid-template-columns: repeat(auto-fit, minmax(260px , 1fr));
@@ -222,8 +254,28 @@ header .fa-shopping-cart {
     width: 200px;
     height: 200px;
 }
+.fa-star {
+    color: yellow;
+}
 .cart-row-contain hr {
     background-color: var(--primary);
+}
+.toggle-none {
+    display: none;
+}
+.payment-card {
+    z-index: 5;
+    overflow: hidden;
+  }
+.payment-card .card {
+    width: 320px;
+}
+.payment-card input {
+    border: 1px solid #000000;
+}
+.card-no-error,
+.cvv-error {
+    color: red;
 }
 .fav-card-div,
 .category-card-div {
@@ -261,8 +313,6 @@ header .fa-shopping-cart {
 .category-btn:active {
     outline: none;
     border: none;
-    width: 150px;
-    background-color: var(--success);
 }
 @media only screen and (max-width: 568px) {
     /* .fav-card-div,
@@ -277,6 +327,9 @@ header .fa-shopping-cart {
     }
     .mobile-none {
         display: none;
+    }
+    .payment-card .card {
+        width: 280px;
     }
 }
 @media only screen and (max-width: 568px) {

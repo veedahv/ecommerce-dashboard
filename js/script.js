@@ -16,6 +16,10 @@ const sideNavItems = document.querySelectorAll('.side-nav-list-item'),
     shoes = document.querySelectorAll('.shoes'),
     cartRowDiv = document.querySelector('.cart-row-div'),
     cartForm = document.querySelector('.cart-form'),
+    cardForm = document.querySelector('.card-form'),
+    searchForm = document.querySelector('.search-form'),
+    searchBox = document.querySelector('.search-box'),
+    paymentForm = document.querySelector('.payment-card'),
     cartHeaderLi = document.querySelector('.cart-header-li'),
     cartRowContain = document.querySelector('.cart-row-contain'),
     favCardDiv = document.querySelector('.fav-card-div'),
@@ -23,6 +27,7 @@ const sideNavItems = document.querySelectorAll('.side-nav-list-item'),
     emptyFav = document.querySelector('.empty-fav'),
     clearFavDiv = document.querySelector('.clear-fav-div'),
     cartSpan = document.querySelector('#cart-no'),
+    notiSpan = document.querySelector('#noti-no'),
     favHearts = document.querySelectorAll('.add-to-fav'),
     btnShops = document.querySelectorAll('.btn-shop'),
     btnCarts = document.querySelectorAll('.btn-cart'),
@@ -41,6 +46,14 @@ const sideNavItems = document.querySelectorAll('.side-nav-list-item'),
     messageContain = document.querySelector('.message-div-contain'),
     sumItemPrice = document.querySelector('.sum-item-price'),
     sumTotalPrice = document.querySelector('.sum-total-price'),
+    proceedBtn = document.querySelector('.btn-proceed'),
+    checkBtn = document.querySelector('.btn-check-out'),
+    paymentTxt = document.querySelector('.payment-txt'),
+    cancelPayBtn = document.querySelector('.cancel-pay-btn'),
+    cancelProceedBtn = document.querySelector('.cancel-proceed-btn'),
+    continuePayBtn = document.querySelector('.continue-pay-btn'),
+    deliveryLocation = document.querySelector('#delivery-location'),
+    deliveryOption = document.querySelector('#delivery-option'),
     favorites = document.querySelector('#favorites'),
     cart = document.querySelector('#cart'),
     naira = '&#8358;';
@@ -106,12 +119,12 @@ const removeCart = () => {
         console.log('== 0');
         cartRowContain.style.display = 'none'
         emptyCart.style.display = 'flex'
-        cartSpan.style.display = 'flex'
+        cartSpan.style.display = 'none'
     } else {
         console.log('!= 0');
         cartRowContain.style.display = 'block'
+        cartSpan.style.display = 'flex'
         emptyCart.style.display = 'none'
-        cartSpan.style.display = 'none'
     }
 }
 const removeFav = () => {
@@ -125,13 +138,47 @@ const removeFav = () => {
         clearFavDiv.style.display = 'flex'
     }
 }
-commentBtn.addEventListener('click', (event) => {
-    if (messageContain.style.display === 'none') {
-        messageContain.style.display = 'block'
-    } else {
-        messageContain.style.display = 'none'
+function checkClassCategory(x) {
+    console.log(categoryCardDiv.childElementCount);
+    for (let i = 0; i < categoryCardDiv.childElementCount; i++) {
+        let categoryChildName = categoryCardDiv.children[i].classList.contains(x);
+        console.log(categoryChildName);
+        if (categoryChildName) {
+            categoryCardDiv.children[i].style.display = 'block';
+        } else {
+            categoryCardDiv.children[i].style.display = 'none';
+        }
     }
+}
+function checkClassCategoryType(x) {
+    for (let i = 0; i < categoryCardDiv.childElementCount; i++) {
+        xLowerCase = x.toLowerCase();
+        let categoryChildName = categoryCardDiv.children[i].classList.contains(xLowerCase);
+        if (categoryChildName) {
+            categoryCardDiv.children[i].style.display = 'block';
+        } else {
+            categoryCardDiv.children[i].style.display = 'none';
+        }
+    }
+}
+searchForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    let searchInput = searchBox.value;
+    home.style.display = 'none'
+        about.style.display = 'none'
+        categories.style.display = 'block'
+        favorites.style.display = 'none'
+        cart.style.display = 'none'
+    checkClassCategoryType(searchInput);
+
 })
+// commentBtn.addEventListener('click', (event) => {
+//     if (messageContain.style.display === 'none') {
+//         messageContain.style.display = 'block'
+//     } else {
+//         messageContain.style.display = 'none'
+//     }
+// })
 // function sumItemPriceFunc() {
 //     sumItemPrice.innerText = 
 // }
@@ -149,7 +196,7 @@ const newCartItem = (itemPrice, itemImg, itemName, itemSpan) => {
                                         <div class="card-body">
                                         <div class="row">
                                         <div class="col-md-6">
-                                            <h5 class="card-title">${itemName}</h5>
+                                            <h5 class="card-title cart-item-name">${itemName}</h5>
                                             <p class="card-text">
                                             <span class="">&#8358;</span>
                                             <span>${itemPrice}</span>
@@ -250,6 +297,7 @@ const checkImg = (itemImg) => {
         if (cartRowDiv.children[i].querySelector('.card-img').src === itemImg) {
             console.log('sometjing');
             cartRowDiv.children[i].remove();
+            removeCartItem(itemImg);
         } else {
             console.log('not sometjing');
         }
@@ -257,23 +305,20 @@ const checkImg = (itemImg) => {
 }
 const removeFavItem = (itemFavCardImg) => {
     favArray.forEach((favArr) => {
-        if (favArr.productImg === itemFavCardImg) {
+        if (itemFavCardImg === favArr.productImg) {
             // localStorage.getItem('favArrayItems');
-            favArray.splice(favArr, favArr);
+            let favArrIndex = favArray.indexOf(favArr);
+            favArray.splice(favArrIndex, 1);
             localStorage.setItem('favArrayItems', JSON.stringify(favArray));
-            console.log('yah yah 1');
             console.log(favArray)
-        } else {
-            console.log('lll');
-            
         }
     })
 }
 const removeCartItem = (itemImg) => {
     cartArray.forEach((cartArr) => {
         if (cartArr.productImg === itemImg) {
-            JSON.parse(localStorage.getItem('cartArrayItems'));
-            // cartArray.splice(cartArr);
+            let cartArrIndex = cartArray.indexOf(cartArr);
+            cartArray.splice(cartArr, 1);
             localStorage.setItem('cartArrayItems', JSON.stringify(cartArray));
             console.log('yah yah 2');
             console.log(cartArray)
@@ -285,11 +330,11 @@ const createFavItem = (itemFavCardPrice, itemFavCardName, itemFavCardImg) => {
                                 <img src=${itemFavCardImg} class="card-img-top" alt="...">
                                 <div class="card-body item-12">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <i class="fa fa-heart add-to-fav" aria-hidden="true"></i>
-                                    </div>
                                     <p class="item-price">
                                         <span>&#8358;</span> <span>${itemFavCardPrice}</span>
                                     </p>
+                                        <i class="fa fa-heart add-to-fav" aria-hidden="true"></i>
+                                    </div>
                                     <p class="item-name">${itemFavCardName}</p>
                                 </div>
                             </div>`;
@@ -304,12 +349,10 @@ const createFavItem = (itemFavCardPrice, itemFavCardName, itemFavCardImg) => {
                     console.log('sometjing');
                     categoryCardDiv.children[i].querySelector('.add-to-fav').classList.add('fa-heart-o');
                     categoryCardDiv.children[i].querySelector('.add-to-fav').classList.remove('fa-heart');
-                } else {
-                    console.log('not sometjing');
                 }
             }
+            removeFavItem(itemRemoveCard.querySelector('.card-img-top').src);
             itemRemoveCard.remove();
-            removeFavItem(itemFavCardImg);
             removeFav();
         })
     })
@@ -337,8 +380,7 @@ const newFavItem = (checkFav, favHeart, itemFavCard, itemFavCardPrice, itemFavCa
         favHeart.classList.add('fa-heart-o');
         favHeart.classList.remove('fa-heart');
         checkClass();
-        removeFavItem(itemFavCardImg)
-        console.log('its working so');
+        removeFavItem(itemFavCardImg);
     }
 }
 favArray.forEach((favArr) => {
@@ -386,33 +428,29 @@ btnCarts.forEach(function (btnCart) {
             productPrice: itemPrice,
             productQuantity: itemSpan,
         }
-        cartArray.push(cartObject);
-        console.log(cartArray);
         if (btnCart.children[0].innerText === 'Add to cart') {
+            console.log(cartArray);
             console.log('lah');
-            btnCart.children[0].innerText = 'Remove from cart'
             newCartItem(itemPrice, itemImg, itemName, itemSpan);
+            cartArray.push(cartObject);
             localStorage.setItem('cartArrayItems', JSON.stringify(cartArray));
+            btnCart.children[0].innerText = 'Remove from cart'
         } else {
             console.log('lahlah');
             checkImg(itemImg)
             btnCart.children[0].innerText = 'Add to cart';
-            removeCartItem(itemImg);
         }
-        removeCart()
+        console.log(cartArray);
+        removeCart();
+        itemCount();
     })
 })
 const itemBoxContainers = document.querySelectorAll('.item-card-box');
 function checkClass() {
     console.log(favCardDiv.childElementCount);
     for (let i = 0; i < favCardDiv.childElementCount; i++) {
-        console.log(favCardDiv.children[i].children[1].className);
-        console.log(itemFavCard.children[1].className);
         if (favCardDiv.children[i].querySelector('.card-img-top').src === itemFavCard.querySelector('.card-img-top').src) {
-            console.log('sometjing');
             favCardDiv.children[i].remove();
-        } else {
-            console.log('not sometjing');
         }
     }
 }
@@ -420,46 +458,47 @@ itemBoxContainers.forEach((itemBoxContainer) => {
     let favHrt = itemBoxContainer.querySelector('.add-to-fav');
     for (let i = 0; i < favCardDiv.childElementCount; i++) {
         if (favCardDiv.children[i].querySelector('.card-img-top').src === itemBoxContainer.querySelector('.card-img-top').src) {
-            console.log('sometjing');
             favHrt.classList.add('fa-heart');
             favHrt.classList.remove('fa-heart-o');
-        } else {
-            console.log('not sometjing');
         }
     }
+})
+itemBoxContainers.forEach((itemBoxContainer) => {
         let btnCart = itemBoxContainer.querySelector('.btn-cart');
     for (let i = 0; i < cartRowDiv.childElementCount; i++) {
         if (cartRowDiv.children[i].querySelector('.card-img').src === itemBoxContainer.querySelector('.card-img-top').src) {
-            console.log('sometjing');
-            // btnCart.children[0].innerText = 'Remove from cart';
-            // console.log(btnCart.children[0].innerText)
-        } else {
-            console.log('not sometjing');
+            console.log(itemBoxContainer)
+            btnCart.children[0].innerText = 'Remove from cart';
         }
     }
 })
 notificationLi.addEventListener('click', function (event) {
     console.log('its working noti');
+    notiSpan.style.display = 'none'
     if (notificationContain.style.display === 'block') {
         notificationContain.style.display = 'none'
     } else {
         notificationContain.style.display = 'block'
     }
 })
-notificationLi.addEventListener('blur', function (event) {
+document.addEventListener('click', function(event) {
+    let isClickInside = notificationContain.contains(event.target);
+    let isClickInsideLi = notificationLi.contains(event.target);
+  
+    if (!isClickInside && !isClickInsideLi) {
     console.log('its working notiblur');
     notificationContain.style.display = 'none'
-
-})
+    }
+  });
 clearBtn.addEventListener('click', function (event) {
     localStorage.removeItem('cartArrayItems');
     while (cartRowDiv.firstChild) {
         cartRowDiv.removeChild(cartRowDiv.firstChild)
     }
-    removeCart()
+    removeCart();
+    itemCount();
     btnCarts.forEach(function (btnCart) {
         if (btnCart.children[0].innerText === 'Remove from cart') {
-            console.log('lah');
             btnCart.children[0].innerText = 'Add to cart'
         }
     })
@@ -469,8 +508,67 @@ clearFav.addEventListener('click', function (event) {
     while (favCardDiv.firstChild) {
         favCardDiv.removeChild(favCardDiv.firstChild)
     }
+    removeFav();
+})
+checkBtn.addEventListener('click', function (event) {
+    event.preventDefault();
+    let deliveryOptionValue = deliveryOption.options[deliveryOption.selectedIndex].value;
+    let deliveryOptionText = deliveryOption.options[deliveryOption.selectedIndex].text;
+    let deliveryLocationValue = deliveryLocation.options[deliveryLocation.selectedIndex].value;
+    let deliveryLocationText = deliveryLocation.options[deliveryLocation.selectedIndex].text;
+    if (deliveryLocationValue === '1' && deliveryOptionValue === '1') {
+        console.log(deliveryLocationText);              
+        console.log(deliveryLocationValue);             
+        console.log(deliveryOptionText);       
+        console.log(deliveryOptionValue); 
+       console.log('1');       
+    } else if (deliveryOptionValue === '1' && deliveryOptionValue !== '1') {
+        console.log(deliveryLocationText);              
+        console.log(deliveryLocationValue);             
+        console.log(deliveryOptionText);       
+        console.log(deliveryOptionValue);     
+        console.log('2');       
+    } else if (deliveryOptionValue !== '1' && deliveryOptionValue === '1') {
+        console.log(deliveryLocationText);              
+        console.log(deliveryLocationValue);             
+        console.log(deliveryOptionText);       
+        console.log(deliveryOptionValue);     
+        console.log('3');       
+    } else if (deliveryOptionValue !== '1' && deliveryOptionValue !== '1') {
+        console.log(deliveryLocationText);              
+        console.log(deliveryLocationValue);             
+        console.log(deliveryOptionText);       
+        console.log(deliveryOptionValue);     
+        console.log('4');       
+        paymentForm.style.display = 'flex';
+    } else {       
+        console.log('5'); 
+        console.log(deliveryLocationText);              
+        console.log(deliveryLocationValue);             
+        console.log(deliveryOptionText);       
+        console.log(deliveryOptionValue);       
+    }
 })
 cartForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    const createNoti = `<div class="d-flex noti-card flex-column justify-content-between">
+    <hr>
+    <div>
+        <p class="mb-1 noti-date">01/11/2020</p>
+        <p class="mb-1 noti-time">7:30 AM</p>
+    </div>
+    <p class="mb-0 noti-txt">Your goods will be delivered within 3 to 4 working days.</p>
+</div>`
+
+notificationContain.querySelector('.card-body').innerHTML += createNoti;
+
+notiSpan.style.display = 'flex';
+// checkBtn.style.display = 'block';
+// paymentTxt.style.display = 'none';
+// proceedBtn.style.display = 'none';
+// paymentForm.style.display = 'none';
+})
+cardForm.addEventListener('submit', function (event) {
     event.preventDefault();
     let checkCvv = cardCvv.value;
     let checkCardNo = cardNo.value;
@@ -484,25 +582,38 @@ cartForm.addEventListener('submit', function (event) {
     } else {
         cvvError.innerText = '';
     }
+    
+    if (checkCvv.length === 3 && checkCardNo.length === 16) {
+        cardNoError.innerText = '';
+        cvvError.innerText = '';
+        paymentForm.style.display = 'none';
+        checkBtn.style.display = 'none';
+        paymentTxt.style.display = 'block';
+        proceedBtn.style.display = 'block';
+        cardCvv.value = '';
+        cardNo.value = '';
+    } 
+
+})
+cancelPayBtn.addEventListener('click', function (event) {
+    event.preventDefault();
     cardCvv.value = '';
     cardNo.value = '';
+    cardNoError.innerText = '';
+    cvvError.innerText = '';
+    paymentForm.style.display = 'none';
+})
+cancelProceedBtn.addEventListener('click', function (event) {
+    event.preventDefault();
+    checkBtn.style.display = 'block';
+    paymentTxt.style.display = 'none';
+    proceedBtn.style.display = 'none';
+    paymentForm.style.display = 'none';
 })
 
-itemCount();
 removeCart();
 removeFav();
-function checkClassCategory(x) {
-    console.log(categoryCardDiv.childElementCount);
-    for (let i = 0; i < categoryCardDiv.childElementCount; i++) {
-        let categoryChildName = categoryCardDiv.children[i].classList.contains(x);
-        console.log(categoryChildName);
-        if (categoryChildName) {
-            categoryCardDiv.children[i].style.display = 'block';
-        } else {
-            categoryCardDiv.children[i].style.display = 'none';
-        }
-    }
-}
+itemCount();
 categoryBtns.forEach(
     function (categoryBtn) {
         categoryBtn.addEventListener('click', function (event) {
