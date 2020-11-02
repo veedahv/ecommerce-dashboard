@@ -143,6 +143,7 @@ select {
     color: var(--primary);
     display: none;
     flex-direction: column;
+    transition: all 3s ease-in;
 }
 .side-nav-list-item:hover {
     cursor: pointer;
@@ -153,6 +154,7 @@ select {
 }
 .main-header h1 {
     max-width: 500px;
+    font-size: 40px;
 }
 .search-contain {
     background-color: #ffffff;
@@ -238,9 +240,13 @@ header .fa-shopping-cart {
     color: white;
 }
 .card {
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 2px 3px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-    border-radius: 5px;
+    border-radius: 10px !important;
+}
+.card-img-top {
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
 }
 .main-overview {
     grid-template-columns: repeat(auto-fit, minmax(260px , 1fr));
@@ -353,11 +359,15 @@ header .fa-shopping-cart {
     }
     #home h1,
     .about .text-center h1 {
-        font-size: 30px;
+        font-size: 28px;
     }
     #categories .text-center-p p,
     .about .text-center p {
         font-size: 20px;
+    }
+    .side-nav {
+        width: 0%;
+        transition: width 3s ease-in;
     }
     .side-nav-show {
         display: block;
