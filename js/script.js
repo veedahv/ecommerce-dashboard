@@ -190,7 +190,7 @@ const newCartItem = (itemPrice, itemImg, itemName, itemSpan) => {
                             <div class="card">
                                 <div class="row no-gutters">
                                     <div class="col-md-4">
-                                        <img src="${itemImg}" class="card-img" alt="...">
+                                        <img src="${itemImg}" class="card-img h-100" alt="...">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
@@ -237,6 +237,7 @@ const newCartItem = (itemPrice, itemImg, itemName, itemSpan) => {
     plusBtns.forEach(function addQty(plusBtn) {
         plusBtn.addEventListener('click', function (event) {
             console.log('yo')
+            t = t - totalPrice;
             itemSpan = itemSpan + 1;
             console.log(itemSpan);
             totalPrice = parseInt(itemPrice) * itemSpan;
@@ -252,7 +253,11 @@ const newCartItem = (itemPrice, itemImg, itemName, itemSpan) => {
     })
     subtractBtns.forEach(function addQty(subtractBtn) {
         subtractBtn.addEventListener('click', function (event) {
+            if (itemSpan <= 1) {
+                console.log('yo-1')
+            } else {
             console.log('yo-')
+            t = t - totalPrice;
             itemSpan = itemSpan - 1;
             console.log(itemSpan);
             totalPrice = parseInt(itemPrice) * itemSpan;
@@ -263,6 +268,7 @@ const newCartItem = (itemPrice, itemImg, itemName, itemSpan) => {
             localStorage.setItem('cartArrayItems', JSON.stringify(cartArray));
             t = t + totalPrice;
             sumItemPrice.innerHTML = t;
+            }
         })
     })
     itemCount();
@@ -473,7 +479,6 @@ itemBoxContainers.forEach((itemBoxContainer) => {
     }
 })
 notificationLi.addEventListener('click', function (event) {
-    console.log('its working noti');
     notiSpan.style.display = 'none'
     if (notificationContain.style.display === 'block') {
         notificationContain.style.display = 'none'
@@ -486,7 +491,6 @@ document.addEventListener('click', function(event) {
     let isClickInsideLi = notificationLi.contains(event.target);
   
     if (!isClickInside && !isClickInsideLi) {
-    console.log('its working notiblur');
     notificationContain.style.display = 'none'
     }
   });
@@ -568,6 +572,26 @@ notiSpan.style.display = 'flex';
 // proceedBtn.style.display = 'none';
 // paymentForm.style.display = 'none';
 })
+cardNo.addEventListener('keypress', function (event) {
+    let checkCardNo = cardNo.value;
+    if (checkCardNo.length !== 16) {
+        cardNoError.innerText = 'invalid card no';
+    } else {
+        cardNo.blur();
+        cardCvv.focus();
+        cardNoError.innerText = '';
+    }
+    })
+cardNo.addEventListener('keypress', function (event) {
+    let checkCvv = cardCvv.value;
+    if (checkCvv.length !== 3) {
+        cvvError.innerText = 'invalid cvv no';
+    } else {
+        cardCvv.blur();
+        // .focus();
+        cardNoError.innerText = '';
+    }
+    })
 cardForm.addEventListener('submit', function (event) {
     event.preventDefault();
     let checkCvv = cardCvv.value;
