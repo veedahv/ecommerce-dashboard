@@ -134,6 +134,11 @@ main .fa-heart {
 .hamburger {
     display: none;
 }
+.fa-times,
+.fa-bars {
+    color: var(--primary) !important;
+    font-size: 20px;
+}
 select {
     border: 1px solid #000000;
 }
@@ -320,6 +325,10 @@ header .fa-shopping-cart {
     outline: none;
     border: none;
 }
+@keyframes slideIn {
+    0%   {width: 0%;}
+    100% {width: 70%;}
+  }
 @media only screen and (max-width: 568px) {
     /* .fav-card-div,
     .category-card-div {
@@ -365,21 +374,18 @@ header .fa-shopping-cart {
     .about .text-center p {
         font-size: 20px;
     }
-    .side-nav {
-        width: 0%;
-        transition: width 3s ease-in;
-    }
     .side-nav-show {
         display: block;
         width: 70%;
         position: absolute;
         height: 100vh;
         z-index: 5;
+        animation: slideIn .1s ease-out;
     }
     .side-nav-show .close-div  {
         display: block;
         top: 20px;
-        right: 20px;
+        left: 20px;
     }
     .hamburger {
         display: block;
