@@ -2,6 +2,7 @@
     --white: #ffffff;
     --success: #28a745;
     --primary: #494259;
+    --primary-light: rgba(73, 66, 89, 0.771);
     --secondary: #D9AC84;
     --tertiary: #fafafd;
     --info: #17a2b8;
@@ -74,7 +75,8 @@ p {
     border: none;
 }
 .nav-active {
-    color: var(--secondary);
+    color: var(--primary);
+    font-weight: bolder;
 }
 ::-webkit-scrollbar{
     width: 5px;
@@ -113,12 +115,33 @@ p {
 }
 .header,
 .footer {
-    /* background-color: var(--primary); */
     background-color: #ffffff;
     color: var(--primary);
 }
 .header li {
     font-size: 18px;
+    color: var(--primary-light);
+}
+main .new-noti-card {
+    background-color: var(--secondary);
+    border-radius: 50px !important;
+    top: -100px;
+    right: 30px;
+    z-index: 5;
+}
+@keyframes inOut {
+    0% {
+        top: -100px;
+        opacity: 0;
+    }
+    50% {
+        top: 50px;
+        opacity: 1;
+    }
+    100% {
+        top: -100px;
+        opacity: 0;
+    }
 }
 .notification-contain {
     z-index: 5;
@@ -153,7 +176,7 @@ select {
 .side-nav {
     grid-area: side-nav;
     background-color: #ffffff;
-    color: var(--primary);
+    color: var(--primary-light);
     display: none;
     flex-direction: column;
     transition: all 3s ease-in;
@@ -231,7 +254,7 @@ input::-webkit-calendar-picker-indicator {
     font-size: 10px;
     height: 12px;
     width: 12px;
-    background-color: var(--primary);
+    background-color: var(--success);
     color: #ffffff;
 }
 #noti-no {
@@ -239,7 +262,7 @@ input::-webkit-calendar-picker-indicator {
     right: 3px;
     height: 8px;
     width: 8px;
-    background-color: var(--primary);
+    background-color: var(--danger);
 }
 header .fa-shopping-cart {
     font-size: 20px;
@@ -285,6 +308,7 @@ header .fa-shopping-cart {
 }
 .payment-card {
     z-index: 5;
+    background-color: rgba(128, 128, 128, 0.5);
     overflow: hidden;
   }
 .payment-card .card {
@@ -335,9 +359,13 @@ header .fa-shopping-cart {
     border: none;
 }
 @keyframes slideIn {
-    0%   {width: 0%;}
-    100% {width: 70%;}
-  }
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 70%;
+    }
+}
 @media only screen and (max-width: 568px) {
     /* .fav-card-div,
     .category-card-div {

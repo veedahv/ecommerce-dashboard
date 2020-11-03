@@ -119,6 +119,11 @@ function checkSideNav(x) {
         } else {
             sideNavItem.classList.remove('nav-active');
         }
+        if (x === 'cart-li') {
+            cartHeaderLi.classList.add('nav-active');
+        } else {
+            cartHeaderLi.classList.remove('nav-active');
+        }
     })
 }
 function itemCount() {
@@ -487,10 +492,15 @@ notificationLi.addEventListener('click', function (event) {
 document.addEventListener('click', function(event) {
     let isClickInside = notificationContain.contains(event.target);
     let isClickInsideLi = notificationLi.contains(event.target);
+    // let paymentCardInside = paymentForm.querySelector('.card');
+    // let isCardInside = paymentCardInside.contains(event.target);
   
     if (!isClickInside && !isClickInsideLi) {
     notificationContain.style.display = 'none'
     }
+    // if (!isCardInside) {
+    //     paymentForm.style.display = 'none'
+    // }
   });
 clearBtn.addEventListener('click', function (event) {
     localStorage.removeItem('cartArrayItems');
@@ -531,21 +541,35 @@ checkBtn.addEventListener('click', function (event) {
             sumTotalPrice.innerText = parseInt(sumX) + 5000;
         }
         paymentForm.style.display = 'flex';
+        const delayCard = () => {
+        document.addEventListener('click', function(event) {
+            let paymentCardInside = paymentForm.querySelector('.card');
+            let isCardInside = paymentCardInside.contains(event.target);
+            let isCheckBtn = checkBtn.contains(event.target);
+                if (!isCardInside && !isCheckBtn) {
+                    paymentForm.style.display = 'none'
+                }
+            });
+        }
+        setTimeout(delayCard, 1000)
     } else {       
         console.log('5');       
     }
 })
 cartForm.addEventListener('submit', function (event) {
     event.preventDefault();
+        let datePara = moment().format('Do MMMM, YYYY');
+        let timePara = moment().format('h:mm a');
+    
     const createNoti = `<div class="d-flex noti-card flex-column justify-content-between">
     <hr>
     <div>
-        <p class="mb-1 noti-date">01/11/2020</p>
-        <p class="mb-1 noti-time">7:30 AM</p>
+        <p class="mb-1 noti-date">${datePara}</p>
+        <p class="mb-1 noti-time">${timePara}</p>
     </div>
     <p class="mb-0 noti-txt">Your goods will be delivered within 3 to 4 working days.</p>
 </div>`
-
+document.querySelector('.new-noti-card').style.animation = `inOut 2s ease-in-out`;
 notificationContain.querySelector('.card-body').innerHTML += createNoti;
 
 notiSpan.style.display = 'flex';
@@ -553,6 +577,10 @@ notiSpan.style.display = 'flex';
 // paymentTxt.style.display = 'none';
 // proceedBtn.style.display = 'none';
 // paymentForm.style.display = 'none';
+const removeInternal = () => {
+    document.querySelector('.new-noti-card').style.animation = 'none';
+}
+setTimeout(removeInternal, 2000)
 })
 cardNo.addEventListener('keypress', function (event) {
     let checkCardNo = cardNo.value;
