@@ -583,9 +583,9 @@ const removeInternal = () => {
 }
 setTimeout(removeInternal, 2000)
 })
-cardNo.addEventListener('keypress', function (event) {
+cardNo.addEventListener('keyup', function (event) {
     let checkCardNo = cardNo.value;
-    if (checkCardNo.length !== 15) {
+    if (checkCardNo.length !== 16) {
         cardNoError.innerText = 'invalid card no';
     } else {
         cardNo.blur();
@@ -593,7 +593,7 @@ cardNo.addEventListener('keypress', function (event) {
         cardNoError.innerText = '';
     }
     })
-cardCvv.addEventListener('keypress', function (event) {
+cardCvv.addEventListener('keyup', function (event) {
     let checkCvv = cardCvv.value;
     if (checkCvv.length !== 3) {
         cvvError.innerText = 'invalid cvv no';
