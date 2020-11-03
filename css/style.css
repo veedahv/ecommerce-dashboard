@@ -160,10 +160,11 @@ select {
 }
 .side-nav-list-item:hover {
     cursor: pointer;
+    color: var(--secondary);
 }
 .side-nav-list-item a:hover {
     text-decoration: none;
-    color: inherit;
+    color: var(--secondary);
 }
 .main-header h1 {
     max-width: 500px;
