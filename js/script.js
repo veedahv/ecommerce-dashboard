@@ -1,5 +1,6 @@
 
 const sideNavItems = document.querySelectorAll('.side-nav-list-item'),
+ sections = document.querySelectorAll('section'),
     sideNav = document.querySelector('.side-nav'),
     home = document.querySelector('#home'),
     about = document.querySelector('#about'),
@@ -41,6 +42,7 @@ const sideNavItems = document.querySelectorAll('.side-nav-list-item'),
     cardNoError = document.querySelector('.card-no-error'),
     cardCvv = document.querySelector('#card-cvv'),
     cardNo = document.querySelector('#card-no'),
+    cardDate = document.querySelector('#card-date'),
     clearFav = document.querySelector('.clear-fav'),
     commentBtn = document.querySelector('.comment-btn'),
     messageContain = document.querySelector('.message-div-contain'),
@@ -101,17 +103,32 @@ if (savedFavArr) {
     })
     localStorage.setItem('favArrayItems', JSON.stringify(favArray));
 }
+function checkSectionId(x) {
+    sections.forEach( (section) => {
+        if (section.id === x) {
+            section.style.display = 'block';
+        } else {
+            section.style.display = 'none';
+        }
+    })
+}
+function checkSideNav(x) {
+    sideNavItems.forEach( (sideNavItem) => {
+        if (sideNavItem.id === x) {
+            sideNavItem.classList.add('nav-active');
+        } else {
+            sideNavItem.classList.remove('nav-active');
+        }
+    })
+}
 function itemCount() {
     noItems.forEach(function (noItem) {
         noItem.innerText = cartRowDiv.childElementCount;
     })
 }
 function displayHome() {
-    home.style.display = 'block'
-    about.style.display = 'none'
-    categories.style.display = 'none'
-    favorites.style.display = 'none'
-    cart.style.display = 'none'
+    checkSectionId('home')
+    checkSideNav('home-li')
 }
 displayHome();
 const removeCart = () => {
@@ -164,11 +181,8 @@ function checkClassCategoryType(x) {
 searchForm.addEventListener('submit', function (event) {
     event.preventDefault();
     let searchInput = searchBox.value;
-    home.style.display = 'none'
-        about.style.display = 'none'
-        categories.style.display = 'block'
-        favorites.style.display = 'none'
-        cart.style.display = 'none'
+    checkSectionId('categories')
+    checkSideNav('categories-li')
     checkClassCategoryType(searchInput);
 
 })
@@ -179,9 +193,6 @@ searchForm.addEventListener('submit', function (event) {
 //         messageContain.style.display = 'none'
 //     }
 // })
-// function sumItemPriceFunc() {
-//     sumItemPrice.innerText = 
-// }
 const newCartItem = (itemPrice, itemImg, itemName, itemSpan) => {
     let totalPrice = parseInt(itemPrice) * itemSpan;
     const newItem = `
@@ -274,11 +285,8 @@ const newCartItem = (itemPrice, itemImg, itemName, itemSpan) => {
     itemCount();
 }
 cartHeaderLi.addEventListener('click', function (event) {
-    home.style.display = 'none'
-    about.style.display = 'none'
-    categories.style.display = 'none'
-    favorites.style.display = 'none'
-    cart.style.display = 'block'
+    checkSectionId('cart')
+    checkSideNav('cart-li')
 })
 hamburger.addEventListener('click', function (event) {
     sideNav.classList.add('side-nav-show')
@@ -288,31 +296,13 @@ close.addEventListener('click', function (event) {
 })
 btnShops.forEach((btnShop) => {
     btnShop.addEventListener('click', function (event) {
-        home.style.display = 'none'
-        about.style.display = 'none'
-        categories.style.display = 'block'
-        favorites.style.display = 'none'
-        cart.style.display = 'none'
+        checkSectionId('categories');
+        checkSideNav('categories-li');
     })
 })
-const checkImg = (itemImg) => {
-    for (let i = 0; i < cartRowDiv.childElementCount; i++) {
-        console.log(cartRowDiv.childElementCount);
-        console.log(cartRowDiv.querySelector('.card-img').src);
-        console.log(itemImg);
-        if (cartRowDiv.children[i].querySelector('.card-img').src === itemImg) {
-            console.log('sometjing');
-            cartRowDiv.children[i].remove();
-            removeCartItem(itemImg);
-        } else {
-            console.log('not sometjing');
-        }
-    }
-}
 const removeFavItem = (itemFavCardImg) => {
     favArray.forEach((favArr) => {
         if (itemFavCardImg === favArr.productImg) {
-            // localStorage.getItem('favArrayItems');
             let favArrIndex = favArray.indexOf(favArr);
             favArray.splice(favArrIndex, 1);
             localStorage.setItem('favArrayItems', JSON.stringify(favArray));
@@ -324,12 +314,20 @@ const removeCartItem = (itemImg) => {
     cartArray.forEach((cartArr) => {
         if (cartArr.productImg === itemImg) {
             let cartArrIndex = cartArray.indexOf(cartArr);
-            cartArray.splice(cartArr, 1);
+            cartArray.splice(cartArrIndex, 1);
             localStorage.setItem('cartArrayItems', JSON.stringify(cartArray));
-            console.log('yah yah 2');
             console.log(cartArray)
         }
     })
+}
+const checkImg = (itemImg) => {
+    for (let i = 0; i < cartRowDiv.childElementCount; i++) {
+        if (cartRowDiv.children[i].querySelector('.card-img').src === itemImg) {
+            console.log('sometjing');
+            removeCartItem(itemImg);
+            cartRowDiv.children[i].remove();
+        }
+    }
 }
 const createFavItem = (itemFavCardPrice, itemFavCardName, itemFavCardImg) => {
     const FavItem = `<div class="card item-card-box mb-3">
@@ -517,40 +515,24 @@ clearFav.addEventListener('click', function (event) {
 checkBtn.addEventListener('click', function (event) {
     event.preventDefault();
     let deliveryOptionValue = deliveryOption.options[deliveryOption.selectedIndex].value;
-    let deliveryOptionText = deliveryOption.options[deliveryOption.selectedIndex].text;
     let deliveryLocationValue = deliveryLocation.options[deliveryLocation.selectedIndex].value;
-    let deliveryLocationText = deliveryLocation.options[deliveryLocation.selectedIndex].text;
-    if (deliveryLocationValue === '1' && deliveryOptionValue === '1') {
-        console.log(deliveryLocationText);              
-        console.log(deliveryLocationValue);             
-        console.log(deliveryOptionText);       
-        console.log(deliveryOptionValue); 
+    if (deliveryLocationValue === '1' && deliveryOptionValue === '1') { 
        console.log('1');       
     } else if (deliveryOptionValue === '1' && deliveryOptionValue !== '1') {
-        console.log(deliveryLocationText);              
-        console.log(deliveryLocationValue);             
-        console.log(deliveryOptionText);       
-        console.log(deliveryOptionValue);     
         console.log('2');       
     } else if (deliveryOptionValue !== '1' && deliveryOptionValue === '1') {
-        console.log(deliveryLocationText);              
-        console.log(deliveryLocationValue);             
-        console.log(deliveryOptionText);       
-        console.log(deliveryOptionValue);     
         console.log('3');       
-    } else if (deliveryOptionValue !== '1' && deliveryOptionValue !== '1') {
-        console.log(deliveryLocationText);              
-        console.log(deliveryLocationValue);             
-        console.log(deliveryOptionText);       
-        console.log(deliveryOptionValue);     
-        console.log('4');       
+    } else if (deliveryOptionValue !== '1' && deliveryOptionValue !== '1') { 
+        console.log('4');
+        let sumX = sumItemPrice.innerText;
+        if (deliveryOptionValue === '2') {
+            sumTotalPrice.innerText = parseInt(sumX) + 2000;
+        } else if (deliveryOptionValue === '3') {
+            sumTotalPrice.innerText = parseInt(sumX) + 5000;
+        }
         paymentForm.style.display = 'flex';
     } else {       
-        console.log('5'); 
-        console.log(deliveryLocationText);              
-        console.log(deliveryLocationValue);             
-        console.log(deliveryOptionText);       
-        console.log(deliveryOptionValue);       
+        console.log('5');       
     }
 })
 cartForm.addEventListener('submit', function (event) {
@@ -574,7 +556,7 @@ notiSpan.style.display = 'flex';
 })
 cardNo.addEventListener('keypress', function (event) {
     let checkCardNo = cardNo.value;
-    if (checkCardNo.length !== 16) {
+    if (checkCardNo.length !== 15) {
         cardNoError.innerText = 'invalid card no';
     } else {
         cardNo.blur();
@@ -582,14 +564,14 @@ cardNo.addEventListener('keypress', function (event) {
         cardNoError.innerText = '';
     }
     })
-cardNo.addEventListener('keypress', function (event) {
+cardCvv.addEventListener('keypress', function (event) {
     let checkCvv = cardCvv.value;
     if (checkCvv.length !== 3) {
         cvvError.innerText = 'invalid cvv no';
     } else {
         cardCvv.blur();
-        // .focus();
-        cardNoError.innerText = '';
+        cardDate.focus();
+        cvvError.innerText = '';
     }
     })
 cardForm.addEventListener('submit', function (event) {
@@ -634,7 +616,6 @@ cancelProceedBtn.addEventListener('click', function (event) {
     proceedBtn.style.display = 'none';
     paymentForm.style.display = 'none';
 })
-
 removeCart();
 removeFav();
 itemCount();
@@ -673,45 +654,28 @@ sideNavItems.forEach(
         sideNavItem.addEventListener('click', function (event) {
             switch (event.target.id) {
                 case 'home-li':
-                    event.target.classList.add('active')
-                    console.log(event.target.className)
-                    home.style.display = 'block'
-                    about.style.display = 'none'
-                    categories.style.display = 'none'
-                    favorites.style.display = 'none'
-                    cart.style.display = 'none'
+                    checkSectionId('home')
+                    checkSideNav('home-li')
                     sideNav.classList.remove('side-nav-show')
                     break;
                 case 'about-li':
-                    home.style.display = 'none'
-                    about.style.display = 'block'
-                    categories.style.display = 'none'
-                    favorites.style.display = 'none'
-                    cart.style.display = 'none'
+                    checkSectionId('about')
+                    checkSideNav('about-li')
                     sideNav.classList.remove('side-nav-show')
                     break;
                 case 'categories-li':
-                    home.style.display = 'none'
-                    about.style.display = 'none'
-                    categories.style.display = 'block'
-                    favorites.style.display = 'none'
-                    cart.style.display = 'none'
+                    checkSectionId('categories')
+                    checkSideNav('categories-li')
                     sideNav.classList.remove('side-nav-show')
                     break;
                 case 'favorites-li':
-                    home.style.display = 'none'
-                    about.style.display = 'none'
-                    categories.style.display = 'none'
-                    favorites.style.display = 'block'
-                    cart.style.display = 'none'
+                    checkSectionId('favorites')
+                    checkSideNav('favorites-li')
                     sideNav.classList.remove('side-nav-show')
                     break;
                 case 'cart-li':
-                    home.style.display = 'none'
-                    about.style.display = 'none'
-                    categories.style.display = 'none'
-                    favorites.style.display = 'none'
-                    cart.style.display = 'block'
+                    checkSectionId('cart')
+                    checkSideNav('cart-li')
                     sideNav.classList.remove('side-nav-show')
                     break;
 
