@@ -567,6 +567,7 @@ cartForm.addEventListener('submit', function (event) {
         <p class="mb-1 noti-date">${datePara}</p>
         <p class="mb-1 noti-time">${timePara}</p>
     </div>
+    <p class="mb-0 noti-txt">Your purchase was.</p>
     <p class="mb-0 noti-txt">Your goods will be delivered within 3 to 4 working days.</p>
 </div>`
 document.querySelector('.new-noti-card').style.animation = `inOut 2s ease-in-out`;
