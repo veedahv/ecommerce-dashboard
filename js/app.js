@@ -39,7 +39,8 @@ function validateEmail(emailValid) {
 }
 function validatePassword(passwordValid) {
     const re = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
-    let passwordValidTest = re.test(String(passwordValid));
+    const regex = /(?:[A-Za-z].*?\d|\d.*?[A-Za-z])/
+    let passwordValidTest = regex.test(String(passwordValid));
     // console.log(passwordValidTest);
     if (passwordValidTest !== true) {
         showError(password1, 'password invalid');

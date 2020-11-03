@@ -574,10 +574,10 @@ document.querySelector('.new-noti-card').style.animation = `inOut 2s ease-in-out
 notificationContain.querySelector('.card-body').innerHTML += createNoti;
 
 notiSpan.style.display = 'flex';
-// checkBtn.style.display = 'block';
-// paymentTxt.style.display = 'none';
-// proceedBtn.style.display = 'none';
-// paymentForm.style.display = 'none';
+checkBtn.style.display = 'block';
+paymentTxt.style.display = 'none';
+proceedBtn.style.display = 'none';
+paymentForm.style.display = 'none';
 const removeInternal = () => {
     document.querySelector('.new-noti-card').style.animation = 'none';
 }
