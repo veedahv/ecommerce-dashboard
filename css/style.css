@@ -179,6 +179,12 @@ select,
     border: 1px solid #000000;
     background-color: var(--white);
 }
+#card-cvv {
+    width: 60px;
+}
+.cart-new-img {
+    max-height: 295px;
+}
 .side-nav {
     grid-area: side-nav;
     background-color: #ffffff;
@@ -364,9 +370,21 @@ header .fa-shopping-cart {
 @keyframes slideIn {
     0% {
         width: 0%;
+        opacity: 0;
     }
     100% {
         width: 70%;
+        opacity: 1;
+    }
+}
+@keyframes slideOut {
+    0% {
+        width: 70%;
+        opacity: 1;
+    }
+    100% {
+        width: 0%;
+        opacity: 0;
     }
 }
 @media only screen and (max-width: 1100px) {    
@@ -422,7 +440,6 @@ header .fa-shopping-cart {
         position: absolute;
         height: 100vh;
         z-index: 5;
-        animation: slideIn .1s ease-out;
     }
     .side-nav-show .close-div  {
         display: block;

@@ -132,8 +132,8 @@ function itemCount() {
     })
 }
 function displayHome() {
-    checkSectionId('home')
-    checkSideNav('home-li')
+    checkSectionId('home');
+    checkSideNav('home-li');
 }
 displayHome();
 const removeCart = () => {
@@ -206,7 +206,7 @@ const newCartItem = (itemPrice, itemImg, itemName, itemSpan) => {
                             <div class="card">
                                 <div class="row no-gutters">
                                     <div class="col-md-4">
-                                        <img src="${itemImg}" class="card-img h-100" alt="...">
+                                        <img src="${itemImg}" class="card-img cart-new-img h-100" alt="...">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
@@ -585,6 +585,8 @@ paymentTxt.style.display = 'none';
 proceedBtn.style.display = 'none';
 paymentForm.style.display = 'none';
 clearCartFunc();
+checkSectionId('home');
+checkSideNav('home-li');
 const removeInternal = () => {
     document.querySelector('.new-noti-card').style.animation = 'none';
 }
