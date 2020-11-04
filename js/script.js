@@ -294,10 +294,27 @@ cartHeaderLi.addEventListener('click', function (event) {
     checkSideNav('cart-li')
 })
 hamburger.addEventListener('click', function (event) {
-    sideNav.classList.add('side-nav-show')
+    sideNav.classList.remove('side-nav-show-out')
+    sideNav.classList.add('side-nav-show-in');
+    sideNav.classList.add('side-nav-show');
+    // setTimeout(sideNav.classList.remove('side-nav-show-in'), 420);
 })
+const removeSideNav = () => {
+    // sideNav.classList.remove('side-nav-show-in')
+    // sideNav.classList.add('side-nav-show-out');
+    sideNav.classList.remove('side-nav-show')
+    // setTimeout(sideNav.classList.remove('side-nav-show-out'), 420)
+}
+const removNav = () => {
+    sideNav.classList.remove('side-nav-show-in')
+    sideNav.classList.add('side-nav-show-out');
+    setTimeout(removeSideNav, 400)
+    // setTimeout(sideNav.classList.remove('side-nav-show-out'), 420)
+}
 close.addEventListener('click', function (event) {
-    sideNav.classList.remove('side-nav-show');
+    removNav()
+    // sideNav.classList.remove('side-nav-show');
+    // sideNav.animation = `slideOut .5s ease-out`;
 })
 btnShops.forEach((btnShop) => {
     btnShop.addEventListener('click', function (event) {

@@ -191,7 +191,7 @@ select,
     color: var(--primary-light);
     display: none;
     flex-direction: column;
-    transition: all 3s ease-in;
+    transition: 3s;
 }
 .side-nav-list-item:hover {
     cursor: pointer;
@@ -369,21 +369,21 @@ header .fa-shopping-cart {
 }
 @keyframes slideIn {
     0% {
-        width: 0%;
         opacity: 0;
+        transform: translateX(-100%);
     }
     100% {
-        width: 70%;
         opacity: 1;
+        transform: translateX(0%);
     }
 }
 @keyframes slideOut {
     0% {
-        width: 70%;
+        transform: translateX(0%);
         opacity: 1;
     }
     100% {
-        width: 0%;
+        transform: translateX(-100%);
         opacity: 0;
     }
 }
@@ -436,10 +436,17 @@ header .fa-shopping-cart {
     }
     .side-nav-show {
         display: block;
-        width: 70%;
         position: absolute;
         height: 100vh;
         z-index: 5;
+        /* animation: slideIn .3s ease-out; */
+    }
+    .side-nav-show-in {
+        animation: slideIn .4s ease-in;
+        width: 70%;
+    }
+    .side-nav-show-out {
+        animation: slideOut .4s ease-in;
     }
     .side-nav-show .close-div  {
         display: block;
