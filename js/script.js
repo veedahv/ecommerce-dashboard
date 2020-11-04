@@ -568,7 +568,7 @@ cartForm.addEventListener('submit', function (event) {
     
     const createNoti = `<div class="d-flex noti-card flex-column justify-content-between">
     <hr>
-    <div>
+    <div class="d-flex flex-row justify-content-between">
         <p class="mb-1 noti-date">${datePara}</p>
         <p class="mb-1 noti-time">${timePara}</p>
     </div>
