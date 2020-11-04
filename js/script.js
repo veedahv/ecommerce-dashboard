@@ -474,12 +474,13 @@ itemBoxContainers.forEach((itemBoxContainer) => {
 })
 itemBoxContainers.forEach((itemBoxContainer) => {
         let btnCart = itemBoxContainer.querySelector('.btn-cart');
-    for (let i = 0; i < cartRowDiv.childElementCount; i++) {
-        if (cartRowDiv.children[i].querySelector('.card-img').src === itemBoxContainer.querySelector('.card-img-top').src) {
-            console.log(itemBoxContainer)
-            btnCart.children[0].innerText = 'Remove from cart';
+        if (btnCart !== null) {
+            for (let i = 0; i < cartRowDiv.childElementCount; i++) {
+                if (cartRowDiv.children[i].querySelector('.card-img').src === itemBoxContainer.querySelector('.card-img-top').src) {
+                    btnCart.children[0].innerText = 'Remove from cart';
+                }
+            }
         }
-    }
 })
 notificationLi.addEventListener('click', function (event) {
     notiSpan.style.display = 'none'

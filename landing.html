@@ -8,11 +8,40 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/landing.css">
     <title>Document</title>
+    <style>
+        section {
+            height: 100vh;
+        }
+        main {
+            height: 100vh;
+            overflow-y: scroll;
+        }
+    </style>
 </head>
 
 <body>
-    <header></header>
-    <main>
+    <header class="position-fixed w-100">
+        <div class="container">
+            <nav id="navbar-example2" class="navbar navbar-light bg-light">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <ul class="nav nav-pills ml-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="#home">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#about">About</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#services">Services</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#contact">Contact</a>
+                  </li>
+                </ul>
+              </nav>
+          </div>
+    </header>
+    <main data-spy="scroll" data-target="#navbar-example2" data-offset="0" class="position-relative w-100">
         <section id="home" class="home py-5">
             <div class="container">
                 <div class="row no-gutters">
@@ -21,29 +50,75 @@
                             <h1 class="my-4">
                                 VeeShop your best choice for affordable luxury
                             </h1>
-                            <button class="btn btn-main btn-shop">See More</button>
+                            <div class="d-flex">
+                                <a href="login.html" class="btn btn-main btn-rgister">Back</a>
+                                <a href="login.html" class="btn btn-main btn-rgister">Back</a>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-5">
                         <img src="images/cherry-668.png" class="card-img" alt="...">
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xl-6">
-                        <a href="login.html" class="btn btn-main btn-rgister">Back</a>
-                        <a href="login.html" class="btn btn-main btn-rgister">Back</a>
-                    </div>
-                    <div class="col-xl-6">y</div>
-                </div>
             </div>
         </section>
         <section id="about" class="about py-5">
             <div class="container">
+                    <h3 class="text-center section-sub-heading">How We Work</h3>
                 <div class="row">
-                    <div class="col-xl-6">x</div>
-                    <div class="col-xl-6">y</div>
+                    <div class="col-xl-4">
+                        <p>
+                            Our brand collection of exquisite feminine luxury makes us
+                            your first choice for that su]aucy feminine drip.
+                            Our products are top notch and will do nothing less than
+                            leaving you admonished by everyone who crossed your path.
+                        </p>                       
+                    </div>
+                    <div class="col-xl-4">y</div>
+                    <div class="col-xl-4">y</div>
                 </div>
             </div>
+                <!-- <div class="card my-5 w-100">
+                    <div class="row no-gutters">
+                        <div class="col-md-5">
+                            <img src="./images/lady-shopping.jpg" class="card-img h-100" alt="...">
+                        </div>
+                        <div class="col-md-7">
+                            <div class="card-body">
+                                <h2 class="card-title mt-3">Our store</h2>
+                                <p class="card-text">
+                                    VeeShop is an online fashion store that sells exquisite clothing
+                                    and accessories to compliment your fashion status.
+                                    We are commmited to make you look your very best as it is our goal.
+                                    We also sell at a very affordable price.
+                                    Dspite your location, we deliver nationwide.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card my-5 w-100">
+                    <div class="row no-gutters product-row">
+                        <div class="col-md-7">
+                            <div class="card-body">
+                                <h2 class="card-title mt-3">Our products</h2>
+                                <p class="card-text">
+                                    Our brand collection of exquisite feminine luxury makes us
+                                    your first choice for that su]aucy feminine drip.
+                                    Our products are top notch and will do nothing less than
+                                    leaving you admonished by everyone who crossed your path.
+                                </p>
+                                <p class="card-text">
+                                    Shop with us, drip with us!
+                                </p> 
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <img src="./images/bag&perf.jpg" class="card-img h-100" alt="...">
+                        </div>
+                    </div>
+                </div> -->
+                
         </section>
         <section id="services" class="services py-5">
             <div class="container">
@@ -64,13 +139,14 @@
                 <a href="index.html" class="btn btn-back">Back</a>
             </div>
         </section>
-        <section id="home" class="home py-5">
-            <div class="container">
-                <a href="index.html" class="btn btn-back">Back</a>
-            </div>
-        </section>
     </main>
-    <script src="./js/app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script>
+    $('body').scrollspy({ target: '#navbar-example' })
+</script>
+    <!-- <script src="./js/app.js"></script> -->
 </body>
 
 </html>

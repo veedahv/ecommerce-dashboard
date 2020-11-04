@@ -199,6 +199,12 @@ select,
     max-width: 500px;
     font-size: 35px;
 }
+.main-header img {
+    filter: drop-shadow(-1px 0px 0px hsl(40, 70%, 100%)) 
+    drop-shadow(0px -1px 0px hsl(40, 70%, 100%))
+    drop-shadow(1px 0px 0px hsl(40, 70%, 100%)) 
+    drop-shadow(0px 1px 0px hsl(40, 70%, 100%));
+}
 .search-contain {
     background-color: #ffffff;
     color: black;
@@ -363,11 +369,13 @@ header .fa-shopping-cart {
         width: 70%;
     }
 }
+@media only screen and (max-width: 1100px) {    
+    .main-header h1 {
+        max-width: 500px;
+        font-size: 30px;
+    }
+}
 @media only screen and (max-width: 568px) {
-    /* .fav-card-div,
-    .category-card-div {
-        column-count: 1;
-    } */
     .about .card .card-title {
         font-size: 25px;
     }
@@ -402,7 +410,7 @@ header .fa-shopping-cart {
     }
     #home h1,
     .about .text-center h1 {
-        font-size: 28px;
+        font-size: 25px;
     }
     #categories .text-center-p p,
     .about .text-center p {
