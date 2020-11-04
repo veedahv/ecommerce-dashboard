@@ -502,11 +502,12 @@ document.addEventListener('click', function(event) {
     //     paymentForm.style.display = 'none'
     // }
   });
-clearBtn.addEventListener('click', function (event) {
+  const clearCartFunc = () => {
     localStorage.removeItem('cartArrayItems');
     while (cartRowDiv.firstChild) {
         cartRowDiv.removeChild(cartRowDiv.firstChild)
     }
+    cartArray.splice(0);
     removeCart();
     itemCount();
     btnCarts.forEach(function (btnCart) {
@@ -514,12 +515,16 @@ clearBtn.addEventListener('click', function (event) {
             btnCart.children[0].innerText = 'Add to cart'
         }
     })
+  }
+clearBtn.addEventListener('click', function (event) {
+    clearCartFunc();
 })
 clearFav.addEventListener('click', function (event) {
     localStorage.removeItem('favArrayItems');
     while (favCardDiv.firstChild) {
         favCardDiv.removeChild(favCardDiv.firstChild)
     }
+    favArray.splice(0);
     removeFav();
 })
 checkBtn.addEventListener('click', function (event) {
@@ -578,6 +583,7 @@ checkBtn.style.display = 'block';
 paymentTxt.style.display = 'none';
 proceedBtn.style.display = 'none';
 paymentForm.style.display = 'none';
+clearCartFunc();
 const removeInternal = () => {
     document.querySelector('.new-noti-card').style.animation = 'none';
 }
