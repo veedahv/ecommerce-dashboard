@@ -46,6 +46,7 @@ const sideNavItems = document.querySelectorAll('.side-nav-list-item'),
     clearFav = document.querySelector('.clear-fav'),
     commentBtn = document.querySelector('.comment-btn'),
     messageContain = document.querySelector('.message-div-contain'),
+    userImg = document.querySelector('.user-img'),
     sumItemPrice = document.querySelector('.sum-item-price'),
     sumTotalPrice = document.querySelector('.sum-total-price'),
     proceedBtn = document.querySelector('.btn-proceed'),
@@ -87,6 +88,8 @@ let possibleQnA = {
 
 const savedCartArr = JSON.parse(localStorage.getItem('cartArrayItems'));
 const savedFavArr = JSON.parse(localStorage.getItem('favArrayItems'));
+const savedUserArr = JSON.parse(localStorage.getItem('userInfoArrProfile'));
+// localStorage.setItem('userInfoArrProfile', JSON.stringify(userInfoArr));
 if (savedCartArr) {
     JSON.parse(localStorage.getItem('cartArrayItems'));
     console.log(savedCartArr);
@@ -103,6 +106,15 @@ if (savedFavArr) {
     })
     localStorage.setItem('favArrayItems', JSON.stringify(favArray));
 }
+// if (savedUserArr) {
+//     // JSON.parse(localStorage.getItem('userInfoArrProfile'));    
+//     localStorage.getItem('userInfoArrProfile');    
+//     console.log(savedUserArr.userImg);
+//     userImg.src = savedUserArr.userImg;
+//     // userImgSrc = URL.createObjectURL(savedUserArr.userImg);
+//     // userImg.src = userImgSrc;
+//     console.log(savedUserArr);
+// }
 function checkSectionId(x) {
     sections.forEach( (section) => {
         if (section.id === x) {

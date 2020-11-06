@@ -41,12 +41,12 @@ const validateEmail = (emailValid) => {
 function validatePassword(passwordValid) {
     const re = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
     const regex = /(?:[A-Za-z].*?\d|\d.*?[A-Za-z])/;
-    let passwordValidTest = regex.test(String(passwordValid));
+    let passwordValidTest = regex.test(String(passwordValid.value));
     console.log(passwordValidTest);
     if (passwordValid.value === '') {
         showError(passwordValid, 'Password cannot be blank');
-    } else if (passwordValid.value.length < 6) {
-        showError(passwordValid, 'Password cannot be less than 8');
+    // } else if (passwordValid.value.length < 6) {
+    //     showError(passwordValid, 'Password cannot be less than 8');
     } else if (passwordValidTest !== true) {
         showError(passwordValid, 'Password should contain atleast a number, a character and letter');
     } else {
@@ -76,7 +76,7 @@ let imgLog = document.querySelector('#img-input');
 let imgBox = document.querySelector('#img-box');
 let imgBoxContain = document.querySelector('.img-box-contain');
 let imgBoxNew = document.querySelector('#img-box-new');
-let imgBoxfram = document.querySelector('.form-password-div');
+let imgBoxfram = document.querySelector('.form-img-div');
 let imgBtn = document.querySelector('.btn-box');
 let el = document.getElementById('img-box');
 let vanilla = new Croppie(el, {
@@ -114,7 +114,8 @@ function requestMessage() {
         if (checkEmail === checkPw1) {
             if (checkPw1 === checkPw2) {
                 if (checkName === true) {
-                    // location.href = 'https://vee-ecommerce-dashboard.netlify.app';
+                    location.href = 'https://vee-ecommerce-dashboard.netlify.app';
+                    localStorage.setItem('userInfoArrProfile', JSON.stringify(userInfoArr));
                 }
             }
         }
@@ -123,22 +124,22 @@ function requestMessage() {
 imgBtn.addEventListener('click', function (event) {
     //on button click
     vanilla.result('blob').then(function (blob) {
+        console.log(blob.type);
         imgBoxNew.src = URL.createObjectURL(blob, blob.type)
+        let userInfo = {
+            userImg: imgBoxNew.src,
+        }
+        userInfoArr = userInfo;
 
         // do something with cropped blob
 
+        imgBoxfram.style.display = 'block';
         imgBoxContain.style.display = 'none';
         imgBtn.style.display = 'none';
     });
 })
 form.addEventListener('submit', function (event) {
-    let userInfo = {
-        userImg: imgBoxNew.src,
-    }
-    userInfoArr = userInfo;
-    console.log(userInfo);
-    console.log(userInfoArr);
-    localStorage.setItem('userInfoArrProfile', JSON.stringify(userInfoArr));
+    
 
     event.preventDefault();
     if (name.value === '') {
@@ -163,5 +164,6 @@ form.addEventListener('submit', function (event) {
         validatePassword(password2);
     }
     requestMessage()
+    console.log(userInfoArr);
 
 });

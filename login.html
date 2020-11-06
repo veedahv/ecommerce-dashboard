@@ -14,15 +14,17 @@
     <main>
         <section>
             <div class="container my-5">
-            <div class="form-contain">
-                <h3 class="text-center">Register with us</h3>
-                <form id="form" class="mt-5 mx-auto p-3">
+            <div class="form-contain mx-auto py-4">
+                <h1 class="text-center intro-txt">Register with us</h1>
+                <form id="form" class="mt-2 w-100 mx-auto p-3">
                     <div class="img-box-contain">
-                        <input type="file" name="img-input" id="img-input" accept="image/*">
+                        <div class="d-flex w-100 justify-content-between mb-2">
+                            <input type="file" name="img-input" class="w-100" id="img-input" accept="image/*">
+                            <button type="button" class="btn btn-box btn-main">Ok</button>
+                    </div>
                         <img id="img-box" alt="">
                     </div>
-                    <button type="button" class="btn btn-box btn-main">Ok</button>
-                    <div class="form-password-div mx-auto rounded-circle" style="width: 80px; height: 80px;">
+                    <div class="form-img-div mx-auto rounded-circle" style="width: 80px; height: 80px;">
                         <img id="img-box-new" alt="">
                     </div>
                     <div class="form-group">
@@ -61,10 +63,9 @@
                         </div>
                         <p id="cap-text2" class="cap-text">Caps lock is ON.</p>
                     </div>
-                    <button type="submit" class="btn btn-back w-100">Register</button>
+                    <button type="submit" class="btn mb-3 btn-main w-100">Register</button>
+                    <a href="https://veeshop.netlify.app/" class="btn btn-main">Back</a>
                 </form>
-                <h4></h4>
-                <a href="index.html" class="btn btn-back">Back</a>
             </div>
             </div>
         </section>

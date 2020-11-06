@@ -1,45 +1,63 @@
-form {
-    max-width: 450px;
-    border: 1px solid black;
+:root {
+    --white: #ffffff;
+    --success: #28a745;
+    --primary: #494259;
+    --primary-light: rgba(73, 66, 89, 0.771);
+    --secondary: #D9AC84;
+    --tertiary: #fafafd;
+    --info: #17a2b8;
+    --warning: #ffc107;
+    --danger: #dc3545;
+    --light: #f8f9fa;
+    --dark: #343a40;    
 }
-.btn-back {
-    background-color: #494259;
+body {
+    background-color: var(--secondary);
+}
+.form-contain {
+    max-width: 550px;
+    border-radius: 20px;
+    background-color: white;
+}
+.intro-txt {
+    font-size: 25px;
+}
+.form-img-div {
+    display: none;
+}
+.btn-main {
+    background-color: var(--primary);
     color: #ffffff;
 }
 small {
-    color: red;
+    color: var(--danger);
     visibility: hidden;
 }
 .cap-text {
+    color: var(--danger);
     display:none;
-    color:red
 }
 .fa-check-circle-o {
-    color: green;
+    color: var(--success);
     padding: 10px; 
     min-width: 40px; 
     right: 0;
     top: 0;
     visibility: hidden;
 }
-/* h4 {
-    display: none;
-} */
 .icon-eye {
-    /* color: green; */
     padding: 10px; 
     min-width: 40px; 
     right: 0;
     top: 0;
-    /* visibility: hidden; */
 }
 
 .form-control.error {
-    border-color: red;
+    border-color: var(--danger);
 }
 
 .form-control.success {
-    border-color: green;
+    border-color: var(--success);
 }
 .error + small {
     visibility: visible;
