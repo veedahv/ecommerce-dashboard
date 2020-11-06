@@ -297,24 +297,17 @@ hamburger.addEventListener('click', function (event) {
     sideNav.classList.remove('side-nav-show-out')
     sideNav.classList.add('side-nav-show-in');
     sideNav.classList.add('side-nav-show');
-    // setTimeout(sideNav.classList.remove('side-nav-show-in'), 420);
 })
 const removeSideNav = () => {
-    // sideNav.classList.remove('side-nav-show-in')
-    // sideNav.classList.add('side-nav-show-out');
-    sideNav.classList.remove('side-nav-show')
-    // setTimeout(sideNav.classList.remove('side-nav-show-out'), 420)
+    sideNav.classList.remove('side-nav-show');
 }
 const removNav = () => {
     sideNav.classList.remove('side-nav-show-in')
     sideNav.classList.add('side-nav-show-out');
     setTimeout(removeSideNav, 400)
-    // setTimeout(sideNav.classList.remove('side-nav-show-out'), 420)
 }
 close.addEventListener('click', function (event) {
-    removNav()
-    // sideNav.classList.remove('side-nav-show');
-    // sideNav.animation = `slideOut .5s ease-out`;
+    removNav();
 })
 btnShops.forEach((btnShop) => {
     btnShop.addEventListener('click', function (event) {
@@ -366,6 +359,7 @@ const createFavItem = (itemFavCardPrice, itemFavCardName, itemFavCardImg) => {
                             </div>`;
     favCardDiv.innerHTML += FavItem;
     const removeHearts = favCardDiv.querySelectorAll('.fa-heart');
+    const homeBoxs = home.querySelectorAll('.item-card-box');
     removeHearts.forEach(function (removeHeart) {
         removeHeart.addEventListener('click', function (event) {
             let itemRemoveCard = removeHeart.closest('.item-card-box');
@@ -377,21 +371,27 @@ const createFavItem = (itemFavCardPrice, itemFavCardName, itemFavCardImg) => {
                     categoryCardDiv.children[i].querySelector('.add-to-fav').classList.remove('fa-heart');
                 }
             }
+            homeBoxs.forEach(function (homeBox) {
+                        if (homeBox.querySelector('.card-img-top').src === itemRemoveCard.querySelector('.card-img-top').src) {
+                            console.log('sometjing');
+                            homeBox.querySelector('.add-to-fav').classList.add('fa-heart-o');
+                            homeBox.querySelector('.add-to-fav').classList.remove('fa-heart');
+                        }
+            })
             removeFavItem(itemRemoveCard.querySelector('.card-img-top').src);
             itemRemoveCard.remove();
             removeFav();
         })
     })
 }
-const newFavItem = (checkFav, favHeart, itemFavCard, itemFavCardPrice, itemFavCardName, itemFavCardImg) => {
-
-    function checkClass() {
+const newFavItem = (checkFav, favHeart, itemFavCardPrice, itemFavCardName, itemFavCardImg) => {
+    function checkClass(itemFavCardImg) {
         console.log(favCardDiv.childElementCount);
+        console.log(favCardDiv.children[0]);
         for (let i = 0; i < favCardDiv.childElementCount; i++) {
-            console.log(favCardDiv.children[i].children[1].className);
-            console.log(itemFavCard.children[1].className);
-            if (favCardDiv.children[i].querySelector('.card-img-top').src === itemFavCard.querySelector('.card-img-top').src) {
+            if (favCardDiv.children[i].querySelector('.card-img-top').src === itemFavCardImg) {
                 console.log('sometjing');
+                removeFavItem(favCardDiv.children[i].querySelector('.card-img-top').src);
                 favCardDiv.children[i].remove();
             } else {
                 console.log('not sometjing');
@@ -402,11 +402,16 @@ const newFavItem = (checkFav, favHeart, itemFavCard, itemFavCardPrice, itemFavCa
         favHeart.classList.add('fa-heart');
         favHeart.classList.remove('fa-heart-o');
         createFavItem(itemFavCardPrice, itemFavCardName, itemFavCardImg);
+        let favObject = {
+            productImg: itemFavCardImg,
+            productName: itemFavCardName,
+            productPrice: itemFavCardPrice,
+        }
+        favArray.push(favObject);
     } else {
         favHeart.classList.add('fa-heart-o');
         favHeart.classList.remove('fa-heart');
-        checkClass();
-        removeFavItem(itemFavCardImg);
+        checkClass(itemFavCardImg);
     }
 }
 favArray.forEach((favArr) => {
@@ -429,14 +434,8 @@ favHearts.forEach(function (favHeart) {
         let itemFavCardName = itemFavCard.querySelector('.item-name').innerText;
         let itemFavCardPrice = itemFavCard.querySelector('.item-price').children[1].innerText;
         let itemFavCardImg = itemFavCard.querySelector('.card-img-top').src;
-        let favObject = {
-            productImg: itemFavCardImg,
-            productName: itemFavCardName,
-            productPrice: itemFavCardPrice,
-        }
-        favArray.push(favObject);
         console.log(favArray);
-        newFavItem(checkFav, favHeart, itemFavCard, itemFavCardPrice, itemFavCardName, itemFavCardImg);
+        newFavItem(checkFav, favHeart, itemFavCardPrice, itemFavCardName, itemFavCardImg);
         localStorage.setItem('favArrayItems', JSON.stringify(favArray));
         removeFav();
     })
@@ -542,6 +541,10 @@ clearFav.addEventListener('click', function (event) {
     while (favCardDiv.firstChild) {
         favCardDiv.removeChild(favCardDiv.firstChild)
     }
+    favHearts.forEach(function (favHeart) {
+        favHeart.classList.add('fa-heart-o');
+        favHeart.classList.remove('fa-heart');
+    })
     favArray.splice(0);
     removeFav();
 })
@@ -713,11 +716,11 @@ sideNavItems.forEach(
                     checkSideNav('home-li')
                     sideNav.classList.remove('side-nav-show')
                     break;
-                case 'about-li':
-                    checkSectionId('about')
-                    checkSideNav('about-li')
-                    sideNav.classList.remove('side-nav-show')
-                    break;
+                // case 'about-li':
+                //     checkSectionId('about')
+                //     checkSideNav('about-li')
+                //     sideNav.classList.remove('side-nav-show')
+                //     break;
                 case 'categories-li':
                     checkSectionId('categories')
                     checkSideNav('categories-li')

@@ -9,6 +9,7 @@ const viewPasswords = document.querySelectorAll('.icon-eye');
 const thanks = document.querySelector('h4');
 const capText = document.getElementById("cap-text");
 
+let userInfoArr = [];
 // Show error message
 const showError = (input, message) => {
     input.className = 'form-control error';
@@ -26,7 +27,7 @@ const showPassword = (password) => {
         formGroup.querySelector('input').type = 'password';
     }
 };
-function validateEmail(emailValid) {
+const validateEmail = (emailValid) => {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let emailValidTest = re.test(String(emailValid).toLowerCase());
     // console.log(emailValidTest);
@@ -39,31 +40,21 @@ function validateEmail(emailValid) {
 }
 function validatePassword(passwordValid) {
     const re = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
-    const regex = /(?:[A-Za-z].*?\d|\d.*?[A-Za-z])/
+    const regex = /(?:[A-Za-z].*?\d|\d.*?[A-Za-z])/;
     let passwordValidTest = regex.test(String(passwordValid));
-    // console.log(passwordValidTest);
-    if (passwordValidTest !== true) {
-        showError(password1, 'password invalid');
+    console.log(passwordValidTest);
+    if (passwordValid.value === '') {
+        showError(passwordValid, 'Password cannot be blank');
+    } else if (passwordValid.value.length < 6) {
+        showError(passwordValid, 'Password cannot be less than 8');
+    } else if (passwordValidTest !== true) {
+        showError(passwordValid, 'Password should contain atleast a number, a character and letter');
     } else {
-        password1.className = 'form-control success';
+        passwordValid.className = 'form-control success';
     }
 
 }
-function passwordCheck() {
-    let checkPw1 = password1.classList.contains('success');
-    if (password1.value === '') {
-        showError(password1, 'Password cannot be blank');
-    } else {
-        validatePassword(password1.value);
-    }
 
-    if (password2.value === '') {
-        showError(password2, 'Password cannot be blank')
-    
-    } else {
-        password2.className = 'form-control success';
-    }
-}
 // function checkCaps() {
 //     if (event.getModifierState("CapsLock")) {
 //         capText.style.display = "block";
@@ -81,6 +72,37 @@ viewPasswords.forEach(function (viewPassword) {
         showPassword(viewPassword);
     })
 })
+let imgLog = document.querySelector('#img-input');
+let imgBox = document.querySelector('#img-box');
+let imgBoxContain = document.querySelector('.img-box-contain');
+let imgBoxNew = document.querySelector('#img-box-new');
+let imgBoxfram = document.querySelector('.form-password-div');
+let imgBtn = document.querySelector('.btn-box');
+let el = document.getElementById('img-box');
+let vanilla = new Croppie(el, {
+    viewport: {
+        enableExif: true,
+        width: 80,
+        height: 80,
+        type: 'circle'
+    },
+    boundary: {
+        height: 150
+    },
+    showZoomer: false,
+});
+// vanilla.method(args);
+imgLog.addEventListener('change', (event) => {
+    imgBox.src = URL.createObjectURL(imgLog.files[0]);
+
+    vanilla.bind({
+        url: imgBox.src,
+    });
+    console.log(imgLog)
+    console.log(imgLog.value)
+    console.log(URL.createObjectURL(imgLog.files[0]))
+    console.log(imgLog.files[0])
+})
 function requestMessage() {
     console.log('please work');
     let checkName = name.classList.contains('success');
@@ -92,15 +114,32 @@ function requestMessage() {
         if (checkEmail === checkPw1) {
             if (checkPw1 === checkPw2) {
                 if (checkName === true) {
-                    location.href='index.html';
+                    // location.href = 'https://vee-ecommerce-dashboard.netlify.app';
                 }
             }
         }
     }
 }
+imgBtn.addEventListener('click', function (event) {
+    //on button click
+    vanilla.result('blob').then(function (blob) {
+        imgBoxNew.src = URL.createObjectURL(blob, blob.type)
 
+        // do something with cropped blob
 
+        imgBoxContain.style.display = 'none';
+        imgBtn.style.display = 'none';
+    });
+})
 form.addEventListener('submit', function (event) {
+    let userInfo = {
+        userImg: imgBoxNew.src,
+    }
+    userInfoArr = userInfo;
+    console.log(userInfo);
+    console.log(userInfoArr);
+    localStorage.setItem('userInfoArrProfile', JSON.stringify(userInfoArr));
+
     event.preventDefault();
     if (name.value === '') {
         showError(name, 'Name cannot be blank');
@@ -114,21 +153,14 @@ form.addEventListener('submit', function (event) {
         validateEmail(email.value);
     }
 
-    if (password1.value !== password2.value) {
+    if (password1.value !== password2.value && password1.value !== '') {
         password1.className = 'form-control error';
         password2.className = 'form-control error';
-        if (password1.value === '') {
-            showError(password1, 'Password cannot be blank')
-        } else {
-            showError(password1, 'Password do not match')
-        }
-        if (password2.value === '') {
-            showError(password2, 'Password cannot be blank')
-        } else {
-            showError(password2, 'Password do not match')
-        }
+            showError(password1, 'Password do not match');
+            showError(password2, 'Password do not match');
     } else {
-        passwordCheck();
+        validatePassword(password1);
+        validatePassword(password2);
     }
     requestMessage()
 
