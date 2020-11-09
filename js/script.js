@@ -1,6 +1,6 @@
 
 const sideNavItems = document.querySelectorAll('.side-nav-list-item'),
- sections = document.querySelectorAll('section'),
+    sections = document.querySelectorAll('section'),
     sideNav = document.querySelector('.side-nav'),
     home = document.querySelector('#home'),
     about = document.querySelector('#about'),
@@ -58,6 +58,7 @@ const sideNavItems = document.querySelectorAll('.side-nav-list-item'),
     deliveryLocation = document.querySelector('#delivery-location'),
     deliveryOption = document.querySelector('#delivery-option'),
     favorites = document.querySelector('#favorites'),
+    preloader = document.querySelector('.pre-loader-div'),
     cart = document.querySelector('#cart'),
     naira = '&#8358;';
 let cartArray = [];
@@ -65,16 +66,24 @@ let favArray = [];
 let userInfoArr = [];
 
 let t = 0;
-
+function preloadAdd() {
+    preloader.style.zIndex = '5';
+    preloader.style.opacity = '1';
+}
+function preloadRemove() {
+    preloader.style.opacity = '0';
+    preloader.style.zIndex = '-5';
+}
+setTimeout(preloadRemove, 1000);
 let possibleQnA = {
-    "Good evening" : "Evening, how may I help you?",
-    "how long for delivery?" : "5 to 10 working days for standard delivery. 3 to 5 working days for express delivery",
-    "ok" : ":)",
-    "thank you" : "You are welcome",
+    "Good evening": "Evening, how may I help you?",
+    "how long for delivery?": "5 to 10 working days for standard delivery. 3 to 5 working days for express delivery",
+    "ok": ":)",
+    "thank you": "You are welcome",
 };
 
 // function talk() {
-    
+
 //     var user = document.getElementById("userBox").value;
 //     document.getElementById("userBox").value = "";
 
@@ -92,7 +101,7 @@ const savedFavArr = JSON.parse(localStorage.getItem('favArrayItems'));
 const savedUserArr = localStorage.getItem('userProfileImg');
 // const savedUserArr = JSON.parse(localStorage.getItem('userInfoArrProfile'));
 // localStorage.setItem('userInfoArrProfile', JSON.stringify(userInfoArr));
-                    // localStorage.setItem('userProfileImg', blob);
+// localStorage.setItem('userProfileImg', blob);
 if (savedCartArr) {
     JSON.parse(localStorage.getItem('cartArrayItems'));
     console.log(savedCartArr);
@@ -123,7 +132,7 @@ if (savedFavArr) {
 //     console.log(userImg.innerHTML);
 // }
 function checkSectionId(x) {
-    sections.forEach( (section) => {
+    sections.forEach((section) => {
         if (section.id === x) {
             section.style.display = 'block';
         } else {
@@ -132,7 +141,9 @@ function checkSectionId(x) {
     })
 }
 function checkSideNav(x) {
-    sideNavItems.forEach( (sideNavItem) => {
+    preloadAdd()
+    setTimeout(preloadRemove, 800);
+    sideNavItems.forEach((sideNavItem) => {
         if (sideNavItem.id === x) {
             sideNavItem.classList.add('nav-active');
         } else {
@@ -145,6 +156,14 @@ function checkSideNav(x) {
         }
     })
 }
+// const dpChild = (x) => {
+//         let dp = x.closest('.side-nav-list-item');
+//         if (dp.id === 'profile-li') {
+//             profile.classList.add('nav-active');
+//         } else {
+//             profile.classList.remove('nav-active');
+//         }
+// }
 function itemCount() {
     noItems.forEach(function (noItem) {
         noItem.innerText = cartRowDiv.childElementCount;
@@ -291,18 +310,18 @@ const newCartItem = (itemPrice, itemImg, itemName, itemSpan) => {
             if (itemSpan <= 1) {
                 console.log('yo-1')
             } else {
-            console.log('yo-')
-            t = t - totalPrice;
-            itemSpan = itemSpan - 1;
-            console.log(itemSpan);
-            totalPrice = parseInt(itemPrice) * itemSpan;
-            console.log(totalPrice);
-            let cartRowInnerDiv = subtractBtn.closest('.cart-row-inner-div');
-            cartRowInnerDiv.querySelector('.total-price').innerHTML = totalPrice;
-            cartRowInnerDiv.querySelector('.item-qty').innerHTML = itemSpan;
-            localStorage.setItem('cartArrayItems', JSON.stringify(cartArray));
-            t = t + totalPrice;
-            sumItemPrice.innerHTML = t;
+                console.log('yo-')
+                t = t - totalPrice;
+                itemSpan = itemSpan - 1;
+                console.log(itemSpan);
+                totalPrice = parseInt(itemPrice) * itemSpan;
+                console.log(totalPrice);
+                let cartRowInnerDiv = subtractBtn.closest('.cart-row-inner-div');
+                cartRowInnerDiv.querySelector('.total-price').innerHTML = totalPrice;
+                cartRowInnerDiv.querySelector('.item-qty').innerHTML = itemSpan;
+                localStorage.setItem('cartArrayItems', JSON.stringify(cartArray));
+                t = t + totalPrice;
+                sumItemPrice.innerHTML = t;
             }
         })
     })
@@ -361,7 +380,7 @@ close.addEventListener('click', function (event) {
 //         console.log(blob.size);
 //         console.log(blob.type);
 //         console.log(blob);
-        
+
 //         imgBoxNew.src = URL.createObjectURL(blob, blob.type);
 //         // localStorage.setItem('userProfileImg', blob)
 //         localStorage.setItem('userProfileImg', vanilla)
@@ -440,11 +459,11 @@ const createFavItem = (itemFavCardPrice, itemFavCardName, itemFavCardImg) => {
                 }
             }
             homeBoxs.forEach(function (homeBox) {
-                        if (homeBox.querySelector('.card-img-top').src === itemRemoveCard.querySelector('.card-img-top').src) {
-                            console.log('sometjing');
-                            homeBox.querySelector('.add-to-fav').classList.add('fa-heart-o');
-                            homeBox.querySelector('.add-to-fav').classList.remove('fa-heart');
-                        }
+                if (homeBox.querySelector('.card-img-top').src === itemRemoveCard.querySelector('.card-img-top').src) {
+                    console.log('sometjing');
+                    homeBox.querySelector('.add-to-fav').classList.add('fa-heart-o');
+                    homeBox.querySelector('.add-to-fav').classList.remove('fa-heart');
+                }
             })
             removeFavItem(itemRemoveCard.querySelector('.card-img-top').src);
             itemRemoveCard.remove();
@@ -557,14 +576,14 @@ itemBoxContainers.forEach((itemBoxContainer) => {
     }
 })
 itemBoxContainers.forEach((itemBoxContainer) => {
-        let btnCart = itemBoxContainer.querySelector('.btn-cart');
-        if (btnCart !== null) {
-            for (let i = 0; i < cartRowDiv.childElementCount; i++) {
-                if (cartRowDiv.children[i].querySelector('.card-img').src === itemBoxContainer.querySelector('.card-img-top').src) {
-                    btnCart.children[0].innerText = 'Remove from cart';
-                }
+    let btnCart = itemBoxContainer.querySelector('.btn-cart');
+    if (btnCart !== null) {
+        for (let i = 0; i < cartRowDiv.childElementCount; i++) {
+            if (cartRowDiv.children[i].querySelector('.card-img').src === itemBoxContainer.querySelector('.card-img-top').src) {
+                btnCart.children[0].innerText = 'Remove from cart';
             }
         }
+    }
 })
 notificationLi.addEventListener('click', function (event) {
     notiSpan.style.display = 'none'
@@ -574,20 +593,20 @@ notificationLi.addEventListener('click', function (event) {
         notificationContain.style.display = 'block'
     }
 })
-document.addEventListener('click', function(event) {
+document.addEventListener('click', function (event) {
     let isClickInside = notificationContain.contains(event.target);
     let isClickInsideLi = notificationLi.contains(event.target);
     // let paymentCardInside = paymentForm.querySelector('.card');
     // let isCardInside = paymentCardInside.contains(event.target);
-  
+
     if (!isClickInside && !isClickInsideLi) {
-    notificationContain.style.display = 'none'
+        notificationContain.style.display = 'none'
     }
     // if (!isCardInside) {
     //     paymentForm.style.display = 'none'
     // }
-  });
-  const clearCartFunc = () => {
+});
+const clearCartFunc = () => {
     localStorage.removeItem('cartArrayItems');
     while (cartRowDiv.firstChild) {
         cartRowDiv.removeChild(cartRowDiv.firstChild)
@@ -600,7 +619,7 @@ document.addEventListener('click', function(event) {
             btnCart.children[0].innerText = 'Add to cart'
         }
     })
-  }
+}
 clearBtn.addEventListener('click', function (event) {
     clearCartFunc();
 })
@@ -620,13 +639,13 @@ checkBtn.addEventListener('click', function (event) {
     event.preventDefault();
     let deliveryOptionValue = deliveryOption.options[deliveryOption.selectedIndex].value;
     let deliveryLocationValue = deliveryLocation.options[deliveryLocation.selectedIndex].value;
-    if (deliveryLocationValue === '1' && deliveryOptionValue === '1') { 
-       console.log('1');       
+    if (deliveryLocationValue === '1' && deliveryOptionValue === '1') {
+        console.log('1');
     } else if (deliveryOptionValue === '1' && deliveryOptionValue !== '1') {
-        console.log('2');       
+        console.log('2');
     } else if (deliveryOptionValue !== '1' && deliveryOptionValue === '1') {
-        console.log('3');       
-    } else if (deliveryOptionValue !== '1' && deliveryOptionValue !== '1') { 
+        console.log('3');
+    } else if (deliveryOptionValue !== '1' && deliveryOptionValue !== '1') {
         console.log('4');
         let sumX = sumItemPrice.innerText;
         if (deliveryOptionValue === '2') {
@@ -636,25 +655,25 @@ checkBtn.addEventListener('click', function (event) {
         }
         paymentForm.style.display = 'flex';
         const delayCard = () => {
-        document.addEventListener('click', function(event) {
-            let paymentCardInside = paymentForm.querySelector('.card');
-            let isCardInside = paymentCardInside.contains(event.target);
-            let isCheckBtn = checkBtn.contains(event.target);
+            document.addEventListener('click', function (event) {
+                let paymentCardInside = paymentForm.querySelector('.card');
+                let isCardInside = paymentCardInside.contains(event.target);
+                let isCheckBtn = checkBtn.contains(event.target);
                 if (!isCardInside && !isCheckBtn) {
                     paymentForm.style.display = 'none'
                 }
             });
         }
         setTimeout(delayCard, 1000)
-    } else {       
-        console.log('5');       
+    } else {
+        console.log('5');
     }
 })
 cartForm.addEventListener('submit', function (event) {
     event.preventDefault();
-        let datePara = moment().format('Do MMMM, YYYY');
-        let timePara = moment().format('h:mm a');
-    
+    let datePara = moment().format('Do MMMM, YYYY');
+    let timePara = moment().format('h:mm a');
+
     const createNoti = `<div class="d-flex noti-card flex-column justify-content-between">
     <hr>
     <div class="d-flex flex-row justify-content-between">
@@ -664,21 +683,21 @@ cartForm.addEventListener('submit', function (event) {
     <p class="mb-0 noti-txt">Your purchase was successful!</p>
     <p class="mb-0 noti-txt">Your goods will be delivered within 3 to 4 working days.</p>
 </div>`
-document.querySelector('.new-noti-card').style.animation = `inOut 2s ease-in-out`;
-notificationContain.querySelector('.card-body').innerHTML += createNoti;
+    document.querySelector('.new-noti-card').style.animation = `inOut 2s ease-in-out`;
+    notificationContain.querySelector('.card-body').innerHTML += createNoti;
 
-notiSpan.style.display = 'flex';
-checkBtn.style.display = 'block';
-paymentTxt.style.display = 'none';
-proceedBtn.style.display = 'none';
-paymentForm.style.display = 'none';
-clearCartFunc();
-checkSectionId('home');
-checkSideNav('home-li');
-const removeInternal = () => {
-    document.querySelector('.new-noti-card').style.animation = 'none';
-}
-setTimeout(removeInternal, 2000)
+    notiSpan.style.display = 'flex';
+    checkBtn.style.display = 'block';
+    paymentTxt.style.display = 'none';
+    proceedBtn.style.display = 'none';
+    paymentForm.style.display = 'none';
+    clearCartFunc();
+    checkSectionId('home');
+    checkSideNav('home-li');
+    const removeInternal = () => {
+        document.querySelector('.new-noti-card').style.animation = 'none';
+    }
+    setTimeout(removeInternal, 2000)
 })
 cardNo.addEventListener('keyup', function (event) {
     let checkCardNo = cardNo.value;
@@ -689,7 +708,7 @@ cardNo.addEventListener('keyup', function (event) {
         cardCvv.focus();
         cardNoError.innerText = '';
     }
-    })
+})
 cardCvv.addEventListener('keyup', function (event) {
     let checkCvv = cardCvv.value;
     if (checkCvv.length !== 3) {
@@ -699,7 +718,7 @@ cardCvv.addEventListener('keyup', function (event) {
         cardDate.focus();
         cvvError.innerText = '';
     }
-    })
+})
 cardForm.addEventListener('submit', function (event) {
     event.preventDefault();
     let checkCvv = cardCvv.value;
@@ -714,7 +733,7 @@ cardForm.addEventListener('submit', function (event) {
     } else {
         cvvError.innerText = '';
     }
-    
+
     if (checkCvv.length === 3 && checkCardNo.length === 16) {
         cardNoError.innerText = '';
         cvvError.innerText = '';
@@ -724,7 +743,7 @@ cardForm.addEventListener('submit', function (event) {
         proceedBtn.style.display = 'block';
         cardCvv.value = '';
         cardNo.value = '';
-    } 
+    }
 
 })
 cancelPayBtn.addEventListener('click', function (event) {
@@ -779,10 +798,16 @@ sideNavItems.forEach(
     function (sideNavItem) {
         sideNavItem.addEventListener('click', function (event) {
             switch (event.target.id) {
+                // case 'profile-li':
+                //     checkSectionId('profile')
+                //     checkSideNav('profile-li')
+                //     removNav();
+                //     console.log('profile');
+                //     break;
                 case 'home-li':
                     checkSectionId('home')
                     checkSideNav('home-li')
-                    sideNav.classList.remove('side-nav-show')
+                    removNav();
                     break;
                 // case 'about-li':
                 //     checkSectionId('about')
@@ -792,20 +817,26 @@ sideNavItems.forEach(
                 case 'categories-li':
                     checkSectionId('categories')
                     checkSideNav('categories-li')
-                    sideNav.classList.remove('side-nav-show')
+                    removNav();
                     break;
                 case 'favorites-li':
                     checkSectionId('favorites')
                     checkSideNav('favorites-li')
-                    sideNav.classList.remove('side-nav-show')
+                    removNav();
                     break;
                 case 'cart-li':
                     checkSectionId('cart')
                     checkSideNav('cart-li')
-                    sideNav.classList.remove('side-nav-show')
+                    removNav();
                     break;
+                    
+                    default:
+                        // dpChild(event.target)
+                        // checkSideNav(event.target)
+                    // console.log('not working');
+                    console.log(event.target.id);
+                    console.log(event.target);
 
-                default:
                     break;
             }
         })

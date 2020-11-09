@@ -55,9 +55,43 @@ p {
     grid-template-rows: 60px 1fr;
     grid-template-areas: 
         'header'
-        'main'
-    ;
+        'main'    ;
     height: 100vh;
+}
+.pre-loader-div {
+    background-color: #ffffff;
+    z-index: 5;
+    height: 100vh;
+}
+
+.pre-loader {
+    width: 80px;
+    height: 80px;
+    border: 5px solid var(--primary-light);
+    border-top: 5px solid var(--primary);
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+}
+.pre-loader p {
+    animation: spinTxt .8s linear infinite;
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@keyframes spinTxt {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(-360deg);
+    }
 }
 .btn.focus, .btn:focus {
     box-shadow: none;

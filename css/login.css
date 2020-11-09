@@ -21,6 +21,7 @@ body {
 }
 .intro-txt {
     font-size: 25px;
+    color: var(--primary);
 }
 .form-img-div {
     display: none;
