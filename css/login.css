@@ -25,6 +25,9 @@ body {
 .form-img-div {
     display: none;
 }
+.a-back {
+    color: var(--primary-light);
+}
 .btn-main {
     background-color: var(--primary);
     color: #ffffff;

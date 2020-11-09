@@ -46,7 +46,7 @@ const sideNavItems = document.querySelectorAll('.side-nav-list-item'),
     clearFav = document.querySelector('.clear-fav'),
     commentBtn = document.querySelector('.comment-btn'),
     messageContain = document.querySelector('.message-div-contain'),
-    userImg = document.querySelector('.user-img'),
+    userImg = document.querySelector('.user-img-div'),
     sumItemPrice = document.querySelector('.sum-item-price'),
     sumTotalPrice = document.querySelector('.sum-total-price'),
     proceedBtn = document.querySelector('.btn-proceed'),
@@ -62,6 +62,7 @@ const sideNavItems = document.querySelectorAll('.side-nav-list-item'),
     naira = '&#8358;';
 let cartArray = [];
 let favArray = [];
+let userInfoArr = [];
 
 let t = 0;
 
@@ -88,8 +89,10 @@ let possibleQnA = {
 
 const savedCartArr = JSON.parse(localStorage.getItem('cartArrayItems'));
 const savedFavArr = JSON.parse(localStorage.getItem('favArrayItems'));
-const savedUserArr = JSON.parse(localStorage.getItem('userInfoArrProfile'));
+const savedUserArr = localStorage.getItem('userProfileImg');
+// const savedUserArr = JSON.parse(localStorage.getItem('userInfoArrProfile'));
 // localStorage.setItem('userInfoArrProfile', JSON.stringify(userInfoArr));
+                    // localStorage.setItem('userProfileImg', blob);
 if (savedCartArr) {
     JSON.parse(localStorage.getItem('cartArrayItems'));
     console.log(savedCartArr);
@@ -107,13 +110,17 @@ if (savedFavArr) {
     localStorage.setItem('favArrayItems', JSON.stringify(favArray));
 }
 // if (savedUserArr) {
-//     // JSON.parse(localStorage.getItem('userInfoArrProfile'));    
-//     localStorage.getItem('userInfoArrProfile');    
-//     console.log(savedUserArr.userImg);
-//     userImg.src = savedUserArr.userImg;
+//     // JSON.parse(localStorage.getItem('userInfoArrProfile')); 
+//                     // localStorage.setItem('userProfileImg', blob);   
+//     // localStorage.getItem('userInfoArrProfile');    
+//     localStorage.getItem('userProfileImg');    
+//     // console.log(savedUserArr.userImg);
+//     userImg.innerHTML = savedUserArr;
+//     // userImg.src = savedUserArr.userImg;
 //     // userImgSrc = URL.createObjectURL(savedUserArr.userImg);
 //     // userImg.src = userImgSrc;
 //     console.log(savedUserArr);
+//     console.log(userImg.innerHTML);
 // }
 function checkSectionId(x) {
     sections.forEach( (section) => {
@@ -321,6 +328,55 @@ const removNav = () => {
 close.addEventListener('click', function (event) {
     removNav();
 })
+// let imgLog = document.querySelector('#img-input');
+// let imgBox = document.querySelector('#img-box');
+// let imgBoxContain = document.querySelector('.img-box-contain');
+// let imgBoxNew = document.querySelector('#img-box-new');
+// let imgBoxfram = document.querySelector('.form-img-div');
+// let imgBtn = document.querySelector('.btn-box');
+// let el = document.getElementById('img-box');
+// let vanilla = new Croppie(el, {
+//     viewport: {
+//         enableExif: true,
+//         width: 80,
+//         height: 80,
+//         type: 'circle'
+//     },
+//     boundary: {
+//         height: 150
+//     },
+//     showZoomer: false,
+// });
+// imgLog.addEventListener('change', (event) => {
+//     imgBox.src = URL.createObjectURL(imgLog.files[0]);
+
+//     vanilla.bind({
+//         url: imgBox.src,
+//     });
+//     console.log(imgLog)
+// })
+// imgBtn.addEventListener('click', function (event) {
+//     //on button click
+//     vanilla.result('blob').then(function (blob) {
+//         console.log(blob.size);
+//         console.log(blob.type);
+//         console.log(blob);
+        
+//         imgBoxNew.src = URL.createObjectURL(blob, blob.type);
+//         // localStorage.setItem('userProfileImg', blob)
+//         localStorage.setItem('userProfileImg', vanilla)
+//         // let userInfo = {
+//         //     userImg: imgBoxNew.src,
+//         // }
+//         // userInfoArr = userInfo;
+
+//         // do something with cropped blob
+
+//         imgBoxfram.style.display = 'block';
+//         imgBoxContain.style.display = 'none';
+//         imgBtn.style.display = 'none';
+//     });
+// })
 btnShops.forEach((btnShop) => {
     btnShop.addEventListener('click', function (event) {
         checkSectionId('categories');

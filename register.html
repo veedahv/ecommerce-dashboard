@@ -15,9 +15,16 @@
         <section>
             <div class="container my-5">
             <div class="form-contain mx-auto py-4">
-                <h1 class="text-center intro-txt"><b>Welcome Back!</b></h1>
-                <h1 class="text-center intro-txt">Please Login</h1>
+                <h1 class="text-center intro-txt">Register with us</h1>
                 <form id="form" class="mt-2 w-100 mx-auto p-3">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <div class="input-div position-relative">
+                            <input type="text" class="form-control position-relative" id="name">
+                            <small></small>
+                            <i class="fa fa-check-circle-o position-absolute" aria-hidden="true"></i>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="email">Email address</label>
                         <div class="input-div position-relative">
@@ -36,10 +43,20 @@
                         </div>
                         <p id="cap-text1" class="cap-text">Caps lock is ON.</p>
                     </div>
-                    <button type="submit" class="btn mb-3 btn-main w-100">Login</button>
+                    <div class="form-group">
+                        <label for="password2">Confirm Password</label>
+                        <div class="input-div position-relative">
+                            <input type="password" class="form-control position-relative" id="password2">
+                            <small></small>
+                            <i class="fa fa-check-circle-o position-absolute" aria-hidden="true"></i>
+                            <i class="fa fa-eye icon-eye position-absolute" aria-hidden="true"></i>
+                        </div>
+                        <p id="cap-text2" class="cap-text">Caps lock is ON.</p>
+                    </div>
+                    <button type="submit" class="btn mb-3 btn-main w-100">Register</button>
                     <p class="text-center">
-                        Don't have an account?
-                        <a href="./register.html"><u>Register</u></a>
+                        Already have an account?
+                        <a href="./login.html"><u>Login</u></a>
                     </p>
                     <div class="d-flex justify-content-center">
                         <a href="https://veeshop.netlify.app/" class="a-back">Back</a>
@@ -49,7 +66,11 @@
             </div>
         </section>
     </main>
-    <script src="./js/app-login.js"></script>
+    <script src="croppie.js"></script>
+    <script>
+
+    </script>
+    <script src="./js/app.js"></script>
 </body>
 
 </html>
